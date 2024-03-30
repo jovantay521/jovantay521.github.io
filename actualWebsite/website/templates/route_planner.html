@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Website</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
+
+    <!-- onemap leafletjs map -->
+    <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />
+    <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
+  </head>
+
+  <body>
+    <!-- header -->
+    <div class="header">
+      <div class="left-section">
+        <a class="nav-link website-logo" href="/">
+          <img class="singapore-flag" src="{{url_for('static', filename='images/singapore-flag.png')}}" alt="">
+          Map
+        </a>
+      </div>
+
+      <nav class="middle-section">
+        <a class="nav-link" href="/route_planner">Route Planner</a>
+        <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
+      </nav>
+      
+      <div class="right-section">
+        <a class="nav-link login-button" href="/login">
+          <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
+          Login 
+        </a>
+      </div>
+    </div>
+    <!-- end of header -->
+    <div id="userInput">
+        <input type="text" id="srcInput" placeholder="Enter your address">
+        <br>
+        <input type="text" id="dstInput" placeholder="Enter your destination">
+        <ul id="autocomplete"></ul>
+        <br>
+        <ul id="autocomplete"></ul>
+        <button id="calBtn" onclick="calRoute()">Enter</button>
+    </div>
+    
+    <div id="map"></div>
+
+  </body>
+
+</html>
+
+
+
+
+    
