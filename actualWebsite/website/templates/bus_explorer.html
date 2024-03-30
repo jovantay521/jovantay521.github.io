@@ -16,6 +16,8 @@
   </head>
 
   <body>
+    
+    <form method="post">
     <!-- header -->
     <div class="header">
       <div class="left-section">
@@ -26,12 +28,12 @@
       </div>
 
       <nav class="middle-section">
-        <a class="nav-link" href="/route_planner">Route Planner</a>
+        <a class="nav-link" href="{{ url_for('home') }}">Route Planner</a>
         <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
       </nav>
       
       <div class="right-section">
-        <a class="nav-link login-button" href="/login">
+        <a class="nav-link login-button" href="{{ url_for('login') }}">
           <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
           Login 
         </a>
@@ -40,7 +42,7 @@
     <!-- end of header -->
 
     <div id="map"></div>
-
+  </form>
   </body>
 
 </html>
