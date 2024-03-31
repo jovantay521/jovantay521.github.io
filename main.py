@@ -11,11 +11,9 @@ app.register_blueprint(routePlanBp, url_prefix='/route_planner')
 app.register_blueprint(busExplorerBp, url_prefix='/bus_explorer')
 
 @app.route("/")
-def index():
+@app.route("/home")
+def home():
     return render_template('home.html')
-# @app.route("/home")
-# def home():
-#     return render_template('home.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
