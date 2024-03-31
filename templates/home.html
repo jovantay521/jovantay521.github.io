@@ -3,8 +3,8 @@
 
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Website</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My First Website</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/temporary.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
@@ -39,7 +39,11 @@
     </div>
     <!-- end of header -->
 
-    <div id="map"></div>
+    <div id="map">
+      <script>
+        
+      </script>
+    </div>
 
   </body>
 
