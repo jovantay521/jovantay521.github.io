@@ -12,7 +12,6 @@
   </head>
 
   <body>
-    <form method="post">
     <div class="header">
       <div class="left-section">
         <a class="nav-link" href="{{ url_for('home') }}">
@@ -28,11 +27,11 @@
           <form method="post">
             <div class="username-box">
               <label for="username-textbox">Username:</label>
-              <input class="username-textbox" type="text" name="username" placeholder="Username">
+              <input id="username-textbox" class="username-textbox" type="text" name="username" placeholder="Username">
             </div>
             <div class="password-box">
               <label for="password-textbox">Password:</label>
-              <input class="password-textbox" type="password" name="password" placeholder="Password">
+              <input id="password-textbox" class="password-textbox" type="password" name="password" placeholder="Password">
             </div>
             <button class="login-button">Login</button>
           </form>
@@ -42,7 +41,6 @@
         </div>
       </div>
     </div>
-  </form>
   </body>
 
 </html>
