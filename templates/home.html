@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My First Website</title>
-    <link rel="stylesheet" href="{{url_for('static', filename='css/temporary.css')}}">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/temporary.css')}}"> -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
@@ -12,7 +12,6 @@
     <!-- onemap leafletjs map -->
     <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />
     <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
-    <script src="{{url_for('static', filename='js/index.js')}}"></script>
   </head>
 
   <body>
@@ -39,12 +38,10 @@
     </div>
     <!-- end of header -->
 
-    <div id="map">
-      <script>
-        
-      </script>
-    </div>
+    <div id="map"></div>
 
+
+    <script src="{{url_for('static',filename='js/map.js')}}"></script>
   </body>
 
 </html>
