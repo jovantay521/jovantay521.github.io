@@ -12,7 +12,6 @@
     <!-- onemap leafletjs map -->
     <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />
     <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
-    <script src="{{url_for('static', filename='js/index.js')}}"></script>
   </head>
 
   <body>
@@ -50,6 +49,8 @@
     
     <div id="map"></div>
 
+    <script src="{{url_for('static',filename='js/map.js')}}"></script>
+    <script src="{{url_for('static', filename='js/route_planner.js')}}"></script>
   </body>
 
 </html>
