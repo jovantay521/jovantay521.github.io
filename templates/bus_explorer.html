@@ -12,6 +12,7 @@
     <!-- onemap leafletjs map -->
     <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />
     <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
+    <script src="./static/js/header.js"></script>
   </head>
 
   <body>
@@ -37,6 +38,20 @@
           Login 
         </a>
       </div>
+
+      <div class="hamburger-menu">
+        <button class="button" type="button" onclick="hamburgerMenu()">&#9660;
+        </button>
+          <div class="hamburger-content" id="hamburger">
+            <a class="nav-link" href="{{ url_for('route_planner') }}">Route Planner</a>
+            <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
+            <a class="nav-link login-button" href="{{ url_for('login') }}">
+              <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
+              Login 
+            </a>
+        </div>
+      </div>
+
     </div>
     <!-- end of header -->
 
