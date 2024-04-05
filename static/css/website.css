@@ -1,24 +1,21 @@
-.search-bar {
-  margin-left: 20px;
-  padding: 5px;
-  border-radius: 5px;
-  border-width: 0px;
-  font-size: 20px;
-}
+
 
 
 #map {
-  height:92.3vh;
-  width: 100vw;
-  position:relative;
-  z-index:0;
+  top: 55px;
+  height:160vh;
+  width: calc(100vw); 
+  position:fixed;
+  z-index:-2;
 }
+
 
 #userInput
 {
   position:absolute;
-  z-index:2;
+  z-index:-1;
   left:110px;
+  top: 55px; 
 }
 
 #srcInput{
@@ -88,3 +85,4 @@
 .li-autocomplete:active{
 	background-color:rgba(102, 101, 101, 0.651);
 }
+
