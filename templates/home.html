@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>My First Website</title>
-    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/temporary.css')}}"> -->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="{{url_for('static', filename='images/favicon.ico')}}">
+  <title>
+    SG Map
+  </title>
+  <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/search-box.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
 
     <!-- onemap leafletjs map -->
     <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />
-    <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>    
+    <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
     <script src="./static/js/header.js"></script>
   </head>
 
@@ -33,30 +37,47 @@
       <div class="right-section">
         <a class="nav-link login-button" href="/login">
           <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
-          Login 
+          Login
         </a>
       </div>
-  
+
       <div class="hamburger-menu">
         <button class="button" onclick="hamburgerMenu()">&#9660;
         </button>
-          <div class="hamburger-content" id="hamburger">
+            <div class="hamburger-content" id="hamburger">
               <a class="nav-link" href="/route_planner">Route Planner</a>
               <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
               <a class="nav-link login-button" href="{{ url_for('login') }}">
                 <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
-                Login 
+                Login
               </a>
-        </div>
+            </div>
       </div>
     </div>
-  </body>
     <!-- end of header -->
 
-    <div id="map"></div>
+  <!-- source/destination input box -->
+    <div class="container">
+      <div class="item item-1">
+        <img class="hollow-red-circle" src="{{url_for('static', filename='images/hollow-red-circle.png')}}" alt="">
+      </div>
+      <div class="item item-2">
+        <img class="round-pushpin-image" src="{{url_for('static', filename='images/round-pushpin.png')}}" alt="">
+      </div>
+      <div class="item item-3">
+        <input class="search-container starting-point" placeholder="Choose starting point"></input>
+      </div>
+      <div class="item item-4">
+        <input class="search-container destination-point" placeholder="Choose destination point"></input>
+      </div>
+      <div class="item item-5">
+        <img class="up-down-arrow" src="{{url_for('static', filename='images/up-down-arrow.png')}}" alt="">
+      </div>
+    </div>
+  </div>
 
-
-    <script src="{{url_for('static',filename='js/map.js')}}"></script>
-  </body>
+  <div id="map"></div>
+  <script src="{{url_for('static',filename='js/map.js')}}"></script>
+</body>
 
 </html>
