@@ -17,7 +17,7 @@ def cal_route():
     
     start_url = f"https://www.onemap.gov.sg/api/common/elastic/search?searchVal={start}&returnGeom=Y&getAddrDetails=Y"
     end_url = f"https://www.onemap.gov.sg/api/common/elastic/search?searchVal={end}&returnGeom=Y&getAddrDetails=Y"
-    
+
     start_response =requests.request("GET", start_url)
     end_response = requests.request("GET", end_url)
     start_response= start_response.json()
@@ -25,7 +25,7 @@ def cal_route():
 
     start_lat = start_response['results'][0]['LATITUDE']
     start_long = start_response['results'][0]['LONGITUDE']
-    
+
     end_lat = end_response['results'][0]['LATITUDE']
     end_long = end_response['results'][0]['LONGITUDE']
 
