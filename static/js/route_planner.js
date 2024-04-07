@@ -5,7 +5,7 @@ const dstInput = document.getElementById("dstInput");
 const calBtn = document.getElementById("calBtn");
 const ul = document.getElementById("autocomplete")
 const form = document.getElementById("input-form")
-const colors = ["red", "blue"];
+const colors = ["red", "blue","green"];
 
 var dstIcon = L.icon({
     iconUrl: '/static/images/dstIcon.png',
@@ -14,12 +14,33 @@ var dstIcon = L.icon({
     iconAnchor:[19,38],
     popupAnchor:[0,-38]
 })
+var startIcon = L.icon({
+    iconUrl: '/static/images/startIcon.png',
+
+    iconSize:[38,38],
+    iconAnchor:[19,38],
+    popupAnchor:[0,-38]
+})
+var polyline = [];
+var marker=[];
 
 srcInput.addEventListener('input', ()=>{autocomplete(srcInput)});
 dstInput.addEventListener('input', ()=>{autocomplete(dstInput)});
 
 form.addEventListener('submit', function(event){
     event.preventDefault();
+    if (polyline.length!=0)
+    {
+       polyline.forEach(element=>{
+        map.map_setup.removeLayer(element);
+       })
+    }
+    if(marker.length!=0)
+    {
+        marker.forEach(element=>{
+            map.map_setup.removeLayer(element);
+        })
+    }
     type = routeType.value;
 
     const formData = new FormData(this);
@@ -31,25 +52,33 @@ form.addEventListener('submit', function(event){
     }).then(data=>{
         if(type == "pt")
         {
-            for(var i=0; i<2;i++)
+            for(var i=0; i<3;i++)
             {
                 var encoded_route =[];
+                var decoded_route=[];
                 data.plan.itineraries[i].legs.forEach((element)=>{
                     encoded_route.push(element.legGeometry.points);
                 })
                 encoded_route.forEach(element=>{
                     var decoded = L.PolylineUtil.decode(element);
-                    var polyline = L.polyline(decoded, {color: colors[i]}).addTo(map.map_setup);
+                    polyline.push(L.polyline(decoded, {color: colors[i]}).addTo(map.map_setup));
+                    decoded_route.push(decoded);
                 })
             }
+            var start = decoded_route[0][0]
+            var end = decoded_route.slice(-1)[0][decoded_route.slice(-1)[0].length-1];
+            marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
+            marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
         }
         else
         {
             var encoded = data.route_geometry;
             var decoded = L.PolylineUtil.decode(encoded);
-            var end = decoded.slice(-1)[0];
-            L.marker(end,{icon:dstIcon}).addTo(map.map_setup);
-            var polyline = L.polyline(decoded,{color: "red"}).addTo(map.map_setup);
+            var start = decoded[0];
+            var end = decoded.slice(-1)[0]; //extract an array starting from the last element
+            marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
+            marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
+            polyline.push(L.polyline(decoded,{color: "red"}).addTo(map.map_setup));
         }
     }).catch(error=>{console.error(error)});
 

@@ -8,16 +8,15 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/onemap_modified_leaflet.css')}}">
+    <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/onemap_modified_leaflet.css')}}"> -->
     <!-- onemap leafletjs map -->
-<!--    <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css"/>-->
+   <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css"/>
     <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/polyline-encoded@0.0.9/Polyline.encoded.min.js"></script>
   </head>
 
   <body>
     <script src="{{url_for('static',filename='js/header_menu.js')}}"></script>
-    <script src="{{url_for('static', filename='js/route_planner.js')}}"></script>
     <!-- header -->
     <div class="header">
       <div class="left-section">
@@ -56,7 +55,10 @@
     <!-- end of header -->
     <div id="userInput">
       <form id="input-form">
-        <input type="text" id="routeType" name="type" placeholder="Enter routing type(pt/drive)">
+        <select id="routeType" name="type">
+          <option value="pt">Public Transport</option>
+          <option value="drive">Drive</option>
+        </select>
         <br>
         <input type="text" id="srcInput" name="start" placeholder="Enter your address">
         <br>
@@ -69,6 +71,7 @@
 
     <div id="map"></div>
     <script src="{{url_for('static',filename='js/map.js')}}"></script>
+    <script src="{{url_for('static', filename='js/route_planner.js')}}"></script>
   </body>
 
 </html>
