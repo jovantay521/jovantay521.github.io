@@ -6,7 +6,7 @@ class MapSetup
 {
     constructor(latlong)
     {
-        this.map_setup=L.map('map').setView(latlong,12);
+        this.map_setup=L.map('map').setView(latlong,12.5);
         this.map_setup.setMaxBounds(bounds);
         L.tileLayer('https://www.onemap.gov.sg/maps/tiles/Default/{z}/{x}/{y}.png', {
         maxZoom: 19,
