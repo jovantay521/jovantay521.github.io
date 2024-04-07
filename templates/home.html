@@ -12,9 +12,10 @@
   <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/search-box.css')}}">
   <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
+  <link rel="stylesheet" href="{{url_for('static', filename='css/onemap_modified_leaflet.css')}}">
 
     <!-- onemap leafletjs map -->
-    <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />
+<!--    <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />-->
     <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
     <script src="{{url_for('static', filename='js/header_menu.js')}}"></script>
   </head>
@@ -47,7 +48,7 @@
             <div class="hamburger-content" id="hamburger">
               <a class="nav-link" href="/route_planner">Route Planner</a>
               <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
-              <a class="nav-link login-button" href="{{ url_for('loginBp.login') }}">
+              <a class="nav-link login-button" href="/login">
                 <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
                 Login
               </a>
