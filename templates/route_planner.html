@@ -12,12 +12,11 @@
     <!-- onemap leafletjs map -->
     <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css"/>
     <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
-    <script src="{{url_for('static',filename='js/header_menu.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/polyline-encoded@0.0.9/Polyline.encoded.min.js"></script>
   </head>
 
   <body>
-    <script src="{{url_for('static',filename='js/map.js')}}"></script>
+    <script src="{{url_for('static',filename='js/header_menu.js')}}"></script>
     <script src="{{url_for('static', filename='js/route_planner.js')}}"></script>
     <!-- header -->
     <div class="header">
@@ -32,11 +31,11 @@
         <a class="nav-link" href="/route_planner">Route Planner</a>
         <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
       </nav>
-      
+
       <div class="right-section">
         <a class="nav-link login-button" href="/login">
           <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
-          Login 
+          Login
         </a>
       </div>
 
@@ -65,8 +64,9 @@
         <button type="submit" id="calBtn">Enter</button>
       </form>
     </div>
-    <div id="map"></div>
 
+    <div id="map"></div>
+    <script src="{{url_for('static',filename='js/map.js')}}"></script>
   </body>
 
 </html>
