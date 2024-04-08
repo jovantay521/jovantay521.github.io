@@ -70,15 +70,28 @@ form.addEventListener('submit', function(event){
             marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
             marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
         }
-        else
+        else //add 2 more driving routes
         {
-            var encoded = data.route_geometry;
-            var decoded = L.PolylineUtil.decode(encoded);
+            var encoded =[];
+            encoded.push(data.route_geometry);
+            if(data.phyroute!=undefined){
+                encoded.push(data.phyroute.route_geometry);
+            }
+            if(data.alternativeroute!=undefined){
+                encoded.push(data.alternativeroute[0].route_geometry);
+            }
+
+            for(var i=0;i<3;i++){
+                if(encoded[i]==undefined)
+                {break;}
+                var decoded = L.PolylineUtil.decode(encoded[i]);
+                polyline.push(L.polyline(decoded,{color: colors[i]}).addTo(map.map_setup));
+            }
+
             var start = decoded[0];
             var end = decoded.slice(-1)[0]; //extract an array starting from the last element
             marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
             marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
-            polyline.push(L.polyline(decoded,{color: "red"}).addTo(map.map_setup));
         }
     }).catch(error=>{console.error(error)});
 
