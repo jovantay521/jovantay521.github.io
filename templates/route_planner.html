@@ -67,7 +67,17 @@
         <br>
         <button type="submit" id="calBtn">Enter</button>
       </form>
+
+      <div id="routeData", style="float: right; width:150px;">
+        {% for data in routeSteps %}
+          <div class="routeSteps" style="float: right;">
+            {{ data }}
+          </div>
+        {% endfor %}
+        </div>
+
     </div>
+
 
     <div id="map"></div>
     <script src="{{url_for('static',filename='js/map.js')}}"></script>

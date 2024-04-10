@@ -2,6 +2,12 @@ from flask import Blueprint, render_template, request, session, jsonify
 from datetime import datetime
 import requests
 
+def displayDriveInfo(data):
+    routeSteps =[]
+    for directions in data:
+        routeSteps.append("In "+ directions[5]+ "\n" +directions[9])
+    
+    return render_template('route_planner.html', routeSteps=routeSteps)
 
 routePlanBp = Blueprint("routePlanBp",__name__)
 
@@ -46,5 +52,13 @@ def cal_route():
     else: #for driving/cycling/walking
         routing_url = f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}"
     route_response = requests.request("GET", routing_url, headers=headers).json()
-
-    return jsonify(route_response)
+    template=None
+    if routeType=="drive":
+        #return render_template('route_planner.html', routeData=route_response['route_instructions'])
+        template=displayDriveInfo(route_response["route_instructions"])
+    
+    return jsonify({
+        "route_response":route_response,
+        "template": template
+        })
+    

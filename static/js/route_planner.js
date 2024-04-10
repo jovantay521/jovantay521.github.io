@@ -5,6 +5,7 @@ const dstInput = document.getElementById("dstInput");
 const calBtn = document.getElementById("calBtn");
 const ul = document.getElementById("autocomplete")
 const form = document.getElementById("input-form")
+const routeData = document.getElementById("routeData");
 const colors = ["red", "blue","green"];
 
 var dstIcon = L.icon({
@@ -29,6 +30,7 @@ dstInput.addEventListener('input', ()=>{autocomplete(dstInput)});
 
 form.addEventListener('submit', function(event){
     event.preventDefault();
+    routeData.innerHTML="";
     if (polyline.length!=0)
     {
        polyline.forEach(element=>{
@@ -50,13 +52,22 @@ form.addEventListener('submit', function(event){
     }).then(res => {
         return res.json()
     }).then(data=>{
+        if(data.template)
+        {
+            const tempElement = document.createElement("div");
+            tempElement.innerHTML = data.template;
+            const steps = tempElement.querySelectorAll(".routeSteps");
+            steps.forEach(div=>{
+                routeData.appendChild(div);
+            })
+        }
         if(type == "pt")
         {
             for(var i=0; i<3;i++)
             {
                 var encoded_route =[];
                 var decoded_route=[];
-                data.plan.itineraries[i].legs.forEach((element)=>{
+                data.route_response.plan.itineraries[i].legs.forEach((element)=>{
                     encoded_route.push(element.legGeometry.points);
                 })
                 encoded_route.forEach(element=>{
@@ -73,12 +84,12 @@ form.addEventListener('submit', function(event){
         else //add 2 more driving routes
         {
             var encoded =[];
-            encoded.push(data.route_geometry);
-            if(data.phyroute!=undefined){
-                encoded.push(data.phyroute.route_geometry);
+            encoded.push(data.route_response.route_geometry);
+            if(data.route_response.phyroute!=undefined){
+                encoded.push(data.route_response.phyroute.route_geometry);
             }
-            if(data.alternativeroute!=undefined){
-                encoded.push(data.alternativeroute[0].route_geometry);
+            if(data.route_response.alternativeroute!=undefined){
+                encoded.push(data.route_response.alternativeroute[0].route_geometry);
             }
 
             for(var i=0;i<3;i++){
