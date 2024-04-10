@@ -1,13 +1,15 @@
 from dbConnection import dbConnection
-from firebase_admin import db
+
+def accCreate(userdetails):
+    username = userdetails[0]
+    email = userdetails[1]
+    accPassword = userdetails[2]
 
 
-def login(userdetails):
+def accLogin(userdetails):
     userdetails[0] = "sgmapgo110"
-    userdetails[1] =12345
-    dbConn = dbConnection().openConn()
+    userdetails[1] = 12345
 
-    ref = db.reference("/Users")
-    result = ref.get()
+    db_Conn = dbConnection().openConn()
 
-    dbConn.closeConn()
+

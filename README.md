@@ -14,3 +14,4 @@ First time use of project:
    python main.py
 5. To deactivate the virtual environment use this command in terminal
    deactivate
+6. Please note that this project is using the free tier of firebase. Thus, any database requests are rate limited.
