@@ -18,6 +18,20 @@
   top: 55px; 
 }
 
+#routeType{
+  height:30px;
+  width:205px;
+  border-radius:10px;
+  background-color: white;
+  font-weight: bold;
+  color: black;
+}
+
+#RouteType::placeholder
+{
+  color:black;
+}
+
 #srcInput{
   height:30px;
   width:200px;
