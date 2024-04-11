@@ -1,11 +1,12 @@
 # import firebase_admin
 # from firebase_admin import credentials
+import firebase_admin
 import pyrebase
 
 # This class is used to
 class dbConnection:
-
-    def openConn(self):
+    @staticmethod
+    def openConn():
 
         config = {
             "apiKey": "AIzaSyBgsLstMsZWuHWnz7SHw9xD41mxjypc7bQ",
@@ -16,8 +17,10 @@ class dbConnection:
             "messagingSenderId": "180843502379",
             "appId": "1:180843502379:web:731dc9182fbc86ab1b836e"
         }
+
         try:
-            db_Conn = pyrebase.initialize_app(config)
+            firebase = pyrebase.initialize_app(config)
         except ValueError:
             return 0
-        return db_Conn
+
+        return firebase
