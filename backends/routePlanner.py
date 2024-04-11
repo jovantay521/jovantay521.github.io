@@ -9,6 +9,21 @@ def displayDriveInfo(data):
     
     return render_template('route_planner.html', routeSteps=routeSteps)
 
+def displayPTInfo(data):
+    routeSteps=[]
+    for itenary in data: #each itenary is an object containing 1 route data
+        route = itenary["legs"] # list of steps for the route
+        for routeData in route: #for each step of the route
+            if routeData["mode"]=="WALK":
+                for step in routeData["steps"]:
+                    routeSteps.append(f"Head {step['absoluteDirection']} {step['distance']}m to {routeData['to']['name']}")
+                continue
+            elif routeData["mode"]=="BUS" or routeData["mode"]=="SUBWAY":
+                routeSteps.append(f"Board {routeData['routeLongName']} from {routeData['from']['name']} for {routeData['to']['stopSequence']-routeData['from']['stopSequence']} stops to {routeData['to']['name']}")
+                continue
+        break #for now to get 1 route will expand to 3 later
+    return render_template("route_planner.html", routeSteps=routeSteps)
+
 routePlanBp = Blueprint("routePlanBp",__name__)
 
 @routePlanBp.route("/route_planner", methods=['GET'])
@@ -44,16 +59,19 @@ def cal_route():
     time= datetime_list[1]
     time="20:00:00" #use when past pt time if not comment out
 
-    #to be refreshed on wed 10/4 
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEyNDk1MDE2LCJleHAiOjE3MTI3NTQyMTYsIm5iZiI6MTcxMjQ5NTAxNiwianRpIjoiTDdDTUZhMmt0alFGeElORiIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.ugDXISOtrSnjKatHH4D3IKlAMcGUObUe1s8EYGHsmsw"
+    #to be refreshed on sun 14/4 
+    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEyODI1NzU3LCJleHAiOjE3MTMwODQ5NTcsIm5iZiI6MTcxMjgyNTc1NywianRpIjoiMkx6WGZxMHl4NWI2RWd4aCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.lMaDzogTANdmo4JiMtXuMleBdJVD6OsDT8DAhFuQu18"
     headers = {"Authorization": token}
     if routeType == "pt":
         routing_url =  f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}&date={date}&time={time}&mode={mode}&numItineraries=3"
     else: #for driving/cycling/walking
         routing_url = f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}"
     route_response = requests.request("GET", routing_url, headers=headers).json()
+
     template=None
-    if routeType=="drive":
+    if routeType=="pt":
+        template=displayPTInfo(route_response["plan"]["itineraries"])
+    else:
         #return render_template('route_planner.html', routeData=route_response['route_instructions'])
         template=displayDriveInfo(route_response["route_instructions"])
     
