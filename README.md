@@ -55,7 +55,7 @@ Host website locally
 ```
 python main.py
 ```
-
+![landing-page](static/images/github-readme-image.jpeg)
 ## Built Using
 - [Flask](https://flask.palletsprojects.com/en/3.0.x/) - Web Framework
 - [Firebase](https://firebase.google.com/) - Database
