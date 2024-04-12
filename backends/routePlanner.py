@@ -7,7 +7,7 @@ def displayDriveInfo(data):
     for directions in data:
         routeSteps.append("In "+ directions[5]+ "\n" +directions[9])
     
-    return render_template('route_planner.html', routeSteps=routeSteps)
+    return render_template('route-planner.html', routeSteps=routeSteps)
 
 def displayPTInfo(data):
     routeSteps=[]
@@ -22,16 +22,16 @@ def displayPTInfo(data):
                 routeSteps.append(f"Board {routeData['routeLongName']} from {routeData['from']['name']} for {routeData['to']['stopSequence']-routeData['from']['stopSequence']} stops to {routeData['to']['name']}")
                 continue
         break #for now to get 1 route will expand to 3 later
-    return render_template("route_planner.html", routeSteps=routeSteps)
+    return render_template("route-planner.html", routeSteps=routeSteps)
 
 routePlanBp = Blueprint("routePlanBp",__name__)
 
-@routePlanBp.route("/route_planner", methods=['GET'])
-def route_planner():
-    return render_template('route_planner.html')
+@routePlanBp.route("/route-planner", methods=['GET'])
+def routePlanner():
+    return render_template('route-planner.html')
 
-@routePlanBp.route("/route_planner", methods=['POST'])
-def cal_route():
+@routePlanBp.route("/route-planner", methods=['POST'])
+def calRoute():
     start = request.form['start']
     end = request.form['end']
     routeType = request.form['type']
@@ -72,7 +72,7 @@ def cal_route():
     if routeType=="pt":
         template=displayPTInfo(route_response["plan"]["itineraries"])
     else:
-        #return render_template('route_planner.html', routeData=route_response['route_instructions'])
+        #return render_template('route-planner.html', routeData=route_response['route_instructions'])
         template=displayDriveInfo(route_response["route_instructions"])
     
     return jsonify({

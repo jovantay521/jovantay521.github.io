@@ -46,7 +46,7 @@ form.addEventListener('submit', function(event){
     type = routeType.value;
 
     const formData = new FormData(this);
-    fetch("/route_planner",{
+    fetch("/route-planner",{
         method: "POST",
         body: formData
     }).then(res => {

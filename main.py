@@ -10,10 +10,15 @@ app.register_blueprint(loginBp)
 app.register_blueprint(routePlanBp)
 app.register_blueprint(busExplorerBp)
 
-@app.route("/")
-@app.route("/home")
-def home():
-    return render_template('home.html')
+# routing
+@app.route('/')
+@app.route('/route-planner')
+def route_planner():
+    return render_template('route-planner.html')
+
+@app.route('/bus-explorer')
+def bus_explorer():
+    return render_template('bus-explorer.html')
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8000)  
