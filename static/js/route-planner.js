@@ -6,8 +6,8 @@ const calBtn = document.getElementById("calBtn");
 const ul = document.getElementById("autocomplete")
 const form = document.getElementById("input-form")
 const routeData = document.getElementById("routeData");
-const colors = ["red", "blue","green"];
 
+const colors = ["red", "blue","green"];
 var dstIcon = L.icon({
     iconUrl: '/static/images/dstIcon.png',
 
@@ -22,31 +22,92 @@ var startIcon = L.icon({
     iconAnchor:[19,38],
     popupAnchor:[0,-38]
 })
-var polyline = [];
-var marker=[];
+
+class Route
+{
+    constructor(type, encodedRoute, routeInfo, color)  //encodedRoute is an array and routeInfo is a nodelist
+    {
+        //this.source=source;
+        //this.destination=destination;
+        this.routeType=type;
+        this.routeInfo = routeInfo;
+        this.encodedRoute = encodedRoute;
+        this.color = color
+        this.polyline=[];
+        this.marker =[];
+    }
+
+    decodeRoute()
+    {
+        var decodedRoute = [];
+        this.encodedRoute.forEach(element=>{
+            var decoded = L.PolylineUtil.decode(element);
+            decodedRoute.push(decoded);
+        })
+
+        return decodedRoute;
+    }
+
+    displayRouteLine()
+    {
+        var decodedRoute=this.decodeRoute(this.encodedRoute);
+        decodedRoute.forEach(element=>{
+            this.polyline.push(L.polyline(element, {color: this.color}).addTo(map.map_setup));
+        })
+
+        var start = decodedRoute[0][0]
+        var end = decodedRoute.slice(-1)[0][decodedRoute.slice(-1)[0].length-1]; //slice extract an array starting from the last element
+        this.marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
+        this.marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
+        return;
+    }
+
+    displayRouteInfo()
+    {
+        this.routeInfo.forEach(div=>{
+            // div.style.backgroundColor= this.color;
+            routeData.appendChild(div);
+        })
+    }
+
+    removeAllInfo()
+    {
+        if (this.polyline.length!=0)
+        {
+            this.polyline.forEach(element=>{
+                map.map_setup.removeLayer(element);
+            })
+        }
+
+        if(this.marker.length!=0)
+        {
+            this.marker.forEach(element=>{
+                map.map_setup.removeLayer(element);
+            })
+        }
+        routeData.innerHTML="";
+    }
+}
+
+var routeContainer=[]; //array to store Route objects
 
 srcInput.addEventListener('input', ()=>{autocomplete(srcInput)});
 dstInput.addEventListener('input', ()=>{autocomplete(dstInput)});
 
 form.addEventListener('submit', function(event){
     event.preventDefault();
-    routeData.innerHTML="";
-    if (polyline.length!=0)
+    if(routeContainer.length>0)
     {
-       polyline.forEach(element=>{
-        map.map_setup.removeLayer(element);
-       })
-    }
-    if(marker.length!=0)
-    {
-        marker.forEach(element=>{
-            map.map_setup.removeLayer(element);
+        routeContainer.forEach(element=>{
+            element.removeAllInfo();
         })
+        routeContainer=[];
     }
+    
     type = routeType.value;
 
     const formData = new FormData(this);
-    fetch("/route_planner",{
+    fetch("/route-planner",{
         method: "POST",
         body: formData
     }).then(res => {
@@ -54,34 +115,28 @@ form.addEventListener('submit', function(event){
     }).then(data=>{
         if(data.template)
         {
+            var steps=[];
             const tempElement = document.createElement("div");
             tempElement.innerHTML = data.template;
-            const steps = tempElement.querySelectorAll(".routeSteps");
-            steps.forEach(div=>{
-                routeData.appendChild(div);
-            })
+            for(var i=1;i<=3;i++)
+            {
+                if(tempElement.querySelectorAll(`.route${i}Steps`)!=null)
+                    steps.push(tempElement.querySelectorAll(`.route${i}Steps`));
+            }
         }
         if(type == "pt")
         {
-            for(var i=0; i<3;i++)
+            for(var i=0; i<steps.length;i++)
             {
-                var encoded_route =[];
-                var decoded_route=[];
+                var encoded_route =[]; 
                 data.route_response.plan.itineraries[i].legs.forEach((element)=>{
                     encoded_route.push(element.legGeometry.points);
                 })
-                encoded_route.forEach(element=>{
-                    var decoded = L.PolylineUtil.decode(element);
-                    polyline.push(L.polyline(decoded, {color: colors[i]}).addTo(map.map_setup));
-                    decoded_route.push(decoded);
-                })
+                var route = new Route(type,encoded_route,steps[i],colors[i]);
+                routeContainer.push(route);
             }
-            var start = decoded_route[0][0]
-            var end = decoded_route.slice(-1)[0][decoded_route.slice(-1)[0].length-1];
-            marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
-            marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
         }
-        else //add 2 more driving routes
+        else 
         {
             var encoded =[];
             encoded.push(data.route_response.route_geometry);
@@ -92,18 +147,18 @@ form.addEventListener('submit', function(event){
                 encoded.push(data.route_response.alternativeroute[0].route_geometry);
             }
 
-            for(var i=0;i<3;i++){
-                if(encoded[i]==undefined)
-                {break;}
-                var decoded = L.PolylineUtil.decode(encoded[i]);
-                polyline.push(L.polyline(decoded,{color: colors[i]}).addTo(map.map_setup));
+            for(var i=0;i<encoded.length;i++){
+                var encodedRoute = [];
+                encodedRoute.push(encoded[i]);
+                var route= new Route(type,encodedRoute,steps[i],colors[i]);
+                routeContainer.push(route);
             }
-
-            var start = decoded[0];
-            var end = decoded.slice(-1)[0]; //extract an array starting from the last element
-            marker.push(L.marker(end,{icon:dstIcon}).addTo(map.map_setup));
-            marker.push(L.marker(start,{icon:startIcon}).addTo(map.map_setup));
         }
+        routeContainer.forEach(element=>
+        {
+            element.displayRouteInfo();
+            element.displayRouteLine();
+        })
     }).catch(error=>{console.error(error)});
 
 })
@@ -126,9 +181,9 @@ function autocomplete(Input){
                 }
             for(var loop=0;loop<5;loop++) //auto-complete 5 addresses
             {
-                calBtn.style.display="none";
+                // calBtn.style.display="none";
                 var li = document.createElement('li');
-                li.classList.add("li-autocomplete");
+                li.classList.add("list-group-item");
                 li.textContent=data.results[loop].ADDRESS;
                 ul.appendChild(li);
 
@@ -137,7 +192,7 @@ function autocomplete(Input){
                     Input.value = li.textContent;
                     ul.innerHTML ="";
                     ul.style.display ='none';
-                    calBtn.style.display="inline";
+                    // calBtn.style.display="inline";
                     return;
 
                 })
