@@ -65,7 +65,7 @@ class Route
     displayRouteInfo()
     {
         this.routeInfo.forEach(div=>{
-            div.style.backgroundColor= this.color;
+            // div.style.backgroundColor= this.color;
             routeData.appendChild(div);
         })
     }
@@ -85,7 +85,6 @@ class Route
                 map.map_setup.removeLayer(element);
             })
         }
-
         routeData.innerHTML="";
     }
 }
@@ -108,7 +107,7 @@ form.addEventListener('submit', function(event){
     type = routeType.value;
 
     const formData = new FormData(this);
-    fetch("/route_planner",{
+    fetch("/route-planner",{
         method: "POST",
         body: formData
     }).then(res => {
@@ -182,9 +181,9 @@ function autocomplete(Input){
                 }
             for(var loop=0;loop<5;loop++) //auto-complete 5 addresses
             {
-                calBtn.style.display="none";
+                // calBtn.style.display="none";
                 var li = document.createElement('li');
-                li.classList.add("li-autocomplete");
+                li.classList.add("list-group-item");
                 li.textContent=data.results[loop].ADDRESS;
                 ul.appendChild(li);
 
@@ -193,7 +192,7 @@ function autocomplete(Input){
                     Input.value = li.textContent;
                     ul.innerHTML ="";
                     ul.style.display ='none';
-                    calBtn.style.display="inline";
+                    // calBtn.style.display="inline";
                     return;
 
                 })
