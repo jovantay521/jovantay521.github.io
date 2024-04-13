@@ -6,9 +6,9 @@ class dbAccOp:
     def accCreate(userdetails):
         #Grab account information
         #Also, please implement the following error/validation checks
-        username = userdetails[0] #Ensure username is more than 6 characters: not implemented
-        email = userdetails[1] #Ensure email is valid: not implemented
-        pwd = userdetails[2] #Ensure password is more than 6 characters: not implemented
+        username = userdetails[0] #Ensure username is more than 6 characters:
+        email = userdetails[1] #Ensure email is valid: 
+        pwd = userdetails[2] #Ensure password is more than 6 characters:
 
         #Open database connection
         firebase = dbConnection.openConn()
