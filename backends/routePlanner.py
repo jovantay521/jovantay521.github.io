@@ -10,7 +10,7 @@ def displayDriveInfo(data):
             routeSteps[counter].append("In "+ directions[5]+ "\n" +directions[9])
         counter+=1
     
-    return render_template('route-planner.html', routeSteps=routeSteps)
+    return render_template('route-planner.html', route1Steps=routeSteps[0], route2Steps=routeSteps[1], route3Steps=routeSteps[2]) #rendering an empty array will not have any effect
 
 def displayPTInfo(data):
     routeSteps=[[],[],[]]
@@ -25,17 +25,17 @@ def displayPTInfo(data):
             elif routeData["mode"]=="BUS" or routeData["mode"]=="SUBWAY":
                 routeSteps[counter].append(f"Board {routeData['routeLongName']} from {routeData['from']['name']} for {routeData['to']['stopSequence']-routeData['from']['stopSequence']} stops to {routeData['to']['name']}")
                 continue
-        break #for now to get 1 route will expand to 3 later
-    return render_template("route-planner.html", routeSteps=routeSteps)
+        counter+=1
+    return render_template("route-planner.html", route1Steps=routeSteps[0], route2Steps=routeSteps[1], route3Steps=routeSteps[2])
 
 routePlanBp = Blueprint("routePlanBp",__name__)
 
 @routePlanBp.route("/route-planner", methods=['GET'])
-def routePlanner():
+def route_planner():
     return render_template('route-planner.html')
 
 @routePlanBp.route("/route-planner", methods=['POST'])
-def calRoute():
+def cal_route():
     start = request.form['start']
     end = request.form['end']
     routeType = request.form['type']
@@ -76,7 +76,7 @@ def calRoute():
     if routeType=="pt":
         template=displayPTInfo(route_response["plan"]["itineraries"])
     else:
-        #return render_template('route_planner.html', routeData=route_response['route_instructions'])
+        #return render_template('route-planner.html', routeData=route_response['route_instructions'])
         data=[]
         data.append(route_response["route_instructions"])
         try:
