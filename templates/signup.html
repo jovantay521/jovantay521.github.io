@@ -24,6 +24,15 @@
     <div class="content-wrapper">
       <div class="sign-up-container">
         <div class="sign-up">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <ul class="flashes">
+              {% for message in messages %}
+              {{ message }}
+              {% endfor %}
+              </ul>
+            {% endif %}
+          {% endwith %}
           <form method="post" action="/accSignUp">
             <div class="username-box">
               <label for="username">Username:</label>

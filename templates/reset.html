@@ -33,7 +33,7 @@
               </ul>
             {% endif %}
           {% endwith %}
-          <form method="post" action="/accLogin">
+          <form method="post" action="/accReset">
   
             <div class="username-box">
               <label for="email">Email:</label>
@@ -43,11 +43,16 @@
               <label for="password">Password:</label>
               <input id="password" class="password-textbox" type="password" name="password" placeholder="Password">
             </div>
-            <button class="login-button">Login</button>
+            <div class="password-box">
+                <label for="confirm-password">Confirm Password:</label>
+                <input id="confirm-password" class="password-textbox" type="confirm-password" name="confirm-password" placeholder="Password">
+              </div>
+            <button class="reset-button">Reset</button>
           </form>
 
-          <a class="reset-password-button" href="/reset">Forgot your password?</a>
-          <a class="sign-up-button" href="/signup">Don't have an account? Sign up here</a>
+          <a class="login-page-button" href="/login">Return to Login Page</button> 
+<!--      <button class="reset-password-button" href="/reset">Forgot your password?</button>-->
+<!--      <a class="sign-up-button" href="/signup">Don't have an account? Sign up here</a>-->
 <!--          <button id="signupBtn" class="sign-up-button">Don't have an account? Sign up here</button>-->
         </div>
       </div>
