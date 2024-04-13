@@ -28,6 +28,7 @@ def accLogin_post():
         return redirect("/login")
 
     userdetails = [email, pwd]
+
     try:
         result = dbAccOp.accLogin(userdetails)
 
@@ -43,5 +44,5 @@ def accLogin_post():
             flash("Email/Password does not exist. Please try again.")
             return redirect("/login")
         else:
-            flash("An error has occured. Please try again later.")
+            flash("An error has occurred. Please try again later.")
             return redirect("/login")
