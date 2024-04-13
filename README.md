@@ -1,17 +1,68 @@
-# SC2006 Project
+# Singapore Map :singapore:
 
+## Description
 
-The project is run on a python virtual environment for portability. All python packages needed to
-operate this web app are already installed into the virtual environment.
+Singapore Map is a web-based mapping application, similar to Google Maps and Waze, localised to Singapore. It is designed to simplify navigation with features such as routing via private and public transport, displaying realtime traffic information and providing users using private transport with nearby parking at their destination 
 
-First time use of project:
-1. Ensure you have python 3.12
-2. Install python virtual environment using this command in the terminal
-   pip install virtualenv
-3. Run the environment using this command in the terminal
-   venv/Scripts/activate.ps1
-4. Now you can run the project using this command
-   python main.py
-5. To deactivate the virtual environment use this command in terminal
-   deactivate
-6. Please note that this project is using the free tier of firebase. Thus, any database requests are rate limited.
+Our main learning objectives of the assignment was to:
+- implement open source APIs
+- utilise publicly available government data
+- develop an innovative application
+
+## Table of Contents
+
+- [Getting Started](<#getting-started>)
+- [Usage](#usage)
+- [Credits](#credits)
+
+## Getting Started
+### Prerequisites
+Python 3.12
+```bash
+python --version # check python version
+```
+
+### Installation
+
+Clone the project
+```bash
+git clone https://github.com/jovantay521/sc3000-project.git
+```
+
+Create virtual environment
+```bash
+python -m venv .venv
+```
+
+Activate virtual environment
+```bash
+# bash/zsh
+source .venv/bin/activate
+```
+
+```ps1
+# powershell
+source .venv/bin/Activate.ps1
+```
+
+Installing required packages
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+Host website locally
+```
+python main.py
+```
+![landing-page](static/images/github-readme-image.jpeg)
+## Built Using
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/) - Web Framework
+- [Firebase](https://firebase.google.com/) - Database
+
+## Credits (to be updated)
+- Tay Jovan
+- Lee Bohui
+- Yan Zhi Xiang
+- Martin
+- Bel
