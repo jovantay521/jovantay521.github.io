@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from backends.login import loginBp
 from backends.signup import signupBp
 from backends.busExplorer import busExplorerBp
+from backends.reset import resetBp
 import secrets
 from datetime import datetime
 import requests
@@ -11,7 +12,9 @@ app = Flask(__name__)
 #Register each page of the website as blueprint
 app.register_blueprint(loginBp)
 app.register_blueprint(signupBp)
+app.register_blueprint(resetBp)
 app.register_blueprint(busExplorerBp)
+
 
 @app.route("/", methods =['GET'])
 @app.route("/route-planner", methods=['GET'])
