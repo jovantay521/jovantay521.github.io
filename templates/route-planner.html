@@ -53,7 +53,7 @@
 
       <!-- mode of transport selector -->
       <select class="form-select form-select mb-2" id="routeType" name="type">
-        <option selected>Select Mode of Transport</option>
+        <option selected disabled>Select Mode of Transport</option>
         <option value="pt">Public Transport</option>
         <option value="drive">Drive</option>
       </select>
@@ -85,7 +85,7 @@
   <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem;">
 
     <!-- red route info -->
-    <div class="d-grid">
+    <div class="d-grid routeInfoButton">
       <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#red-route"
       aria-expanded="false" aria-controls="red-route">
       Red Route
@@ -102,7 +102,7 @@
     <!-- end of red route info -->
 
     <!-- blue route info -->
-    <div class="d-grid mt-2">
+    <div class="d-grid mt-2 routeInfoButton">
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#blue-route"
       aria-expanded="false" aria-controls="blue-route">
       Blue Route
@@ -119,7 +119,7 @@
     <!-- end of blue route info -->
     
     <!-- green route info -->
-    <div class="d-grid mt-2">
+    <div class="d-grid mt-2 routeInfoButton">
       <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#green-route"
       aria-expanded="false" aria-controls="collapseExample">
       Green Route
