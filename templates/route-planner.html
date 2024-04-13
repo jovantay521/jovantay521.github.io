@@ -35,10 +35,10 @@
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{ url_for('route_planner') }}">Route Planner</a>
+            <a class="nav-link active" aria-current="page" href="/route-planner">Route Planner</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('bus_explorer') }}">Bus Explorer</a>
+            <a class="nav-link" href="/bus-explorer">Bus Explorer</a>
           </li>
         </ul>
 
@@ -48,8 +48,8 @@
   </nav>
 
   <!-- search box -->
-  <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem;">
-    <form id="input-form">
+  <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index:4;">
+    <form id="input-form" action="/route-planner">
 
       <!-- mode of transport selector -->
       <select class="form-select form-select mb-2" id="routeType" name="type">
@@ -82,7 +82,7 @@
   </div>
 
   <!-- routing data -->
-  <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem;">
+  <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index:4;">
 
     <!-- red route info -->
     <div class="d-grid">
@@ -138,7 +138,7 @@
   <!-- end of routing info -->
 
   <!-- map display -->
-  <div id="map"></div>
+  <div id="map" style="z-index:3"></div>
   <script src="{{url_for('static',filename='js/map.js')}}"></script>
   <!-- end of map display -->
 

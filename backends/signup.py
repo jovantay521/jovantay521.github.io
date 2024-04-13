@@ -5,7 +5,7 @@ from database.dbAccOperation import dbAccOp
 signupBp = Blueprint("signupBp",__name__)
 
 #renders page
-@signupBp.route("/signup", methods =['GET','POST'])
+@signupBp.route("/signup", methods =['GET'])
 def signup():
 
     return render_template('signup.html')
@@ -22,6 +22,6 @@ def accSignUp_post():
     if (result != 0):
         session['username'] = username
         # print("Account " + username + " was created and added to database")
-        return redirect("/home")
+        return redirect("/route-planner")
     else:
         return redirect("/login")

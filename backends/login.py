@@ -4,7 +4,7 @@ from database.dbAccOperation import  dbAccOp
 loginBp = Blueprint("loginBp",__name__)
 
 #renders page
-@loginBp.route("/login", methods =['GET','POST'])
+@loginBp.route("/login", methods =['GET'])
 def login():
 
     return render_template('login.html')
@@ -20,6 +20,6 @@ def accLogin_post():
     if (result != 0):
         # print("Account " + username + "has logged in")
         session['username'] = email
-        return redirect("/home")
+        return redirect("/route-planner")
     else:
         return redirect("/login")
