@@ -14,7 +14,7 @@
   <body>
     <div class="header">
       <div class="left-section">
-        <a class="nav-link" href="{{ url_for('home') }}">
+        <a class="nav-link" href="/route-planner">
           <img class="back-arrow-image" src="{{url_for('static', filename='../images/back-arrow.png')}}" alt="">
           Back
         </a>
@@ -33,8 +33,8 @@
               </ul>
             {% endif %}
           {% endwith %}
+
           <form method="post" action="/accReset">
-  
             <div class="username-box">
               <label for="email">Email:</label>
               <input id="email" class="username-textbox" type="text" name="email" placeholder="Email">
@@ -50,7 +50,7 @@
             <button class="reset-button">Reset</button>
           </form>
 
-          <a class="login-page-button" href="/login">Return to Login Page</button> 
+          <a class="login-page-button" href="/login">Return to Login Page</a>
 <!--      <button class="reset-password-button" href="/reset">Forgot your password?</button>-->
 <!--      <a class="sign-up-button" href="/signup">Don't have an account? Sign up here</a>-->
 <!--          <button id="signupBtn" class="sign-up-button">Don't have an account? Sign up here</button>-->
