@@ -3,23 +3,27 @@ from datetime import datetime
 import requests
 
 def displayDriveInfo(data):
-    routeSteps =[]
-    for directions in data:
-        routeSteps.append("In "+ directions[5]+ "\n" +directions[9])
+    routeSteps =[[],[],[]]
+    counter=0
+    for routeData in data:
+        for directions in routeData:
+            routeSteps[counter].append("In "+ directions[5]+ "\n" +directions[9])
+        counter+=1
     
     return render_template('route-planner.html', routeSteps=routeSteps)
 
 def displayPTInfo(data):
-    routeSteps=[]
+    routeSteps=[[],[],[]]
+    counter =0
     for itenary in data: #each itenary is an object containing 1 route data
         route = itenary["legs"] # list of steps for the route
         for routeData in route: #for each step of the route
             if routeData["mode"]=="WALK":
                 for step in routeData["steps"]:
-                    routeSteps.append(f"Head {step['absoluteDirection']} {step['distance']}m to {routeData['to']['name']}")
+                    routeSteps[counter].append(f"Head {step['absoluteDirection']} {step['distance']}m to {routeData['to']['name']}")
                 continue
             elif routeData["mode"]=="BUS" or routeData["mode"]=="SUBWAY":
-                routeSteps.append(f"Board {routeData['routeLongName']} from {routeData['from']['name']} for {routeData['to']['stopSequence']-routeData['from']['stopSequence']} stops to {routeData['to']['name']}")
+                routeSteps[counter].append(f"Board {routeData['routeLongName']} from {routeData['from']['name']} for {routeData['to']['stopSequence']-routeData['from']['stopSequence']} stops to {routeData['to']['name']}")
                 continue
         break #for now to get 1 route will expand to 3 later
     return render_template("route-planner.html", routeSteps=routeSteps)
@@ -72,8 +76,18 @@ def calRoute():
     if routeType=="pt":
         template=displayPTInfo(route_response["plan"]["itineraries"])
     else:
-        #return render_template('route-planner.html', routeData=route_response['route_instructions'])
-        template=displayDriveInfo(route_response["route_instructions"])
+        #return render_template('route_planner.html', routeData=route_response['route_instructions'])
+        data=[]
+        data.append(route_response["route_instructions"])
+        try:
+            data.append(route_response["phyroute"]["route_instructions"])
+        except KeyError:
+            pass
+        try:
+            data.append(route_response["alternativeroute"][0]["route_instructions"])
+        except KeyError:
+            pass
+        template=displayDriveInfo(data)
     
     return jsonify({
         "route_response":route_response,
