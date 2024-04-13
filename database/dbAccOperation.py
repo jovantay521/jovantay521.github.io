@@ -53,7 +53,7 @@ class dbAccOp:
     #maybe when logout is coded, can shift the session pop to where it is and remove from here
     @staticmethod
     def accLogout():
-        session.pop('username',None)
+        session.pop('email',None)
 
     
     @staticmethod
@@ -74,19 +74,5 @@ class dbAccOp:
                     return str(err)
                 
             return 1 #if email not valid/does not exist
-        
-    @staticmethod
-    def userSignInCheck():
-        firebase = dbConnection().openConn()
-        auth_Mod = firebase.auth()
-        db = firebase.database()
 
-        user = auth_Mod.currentUser
-
-        auth_Mod.onAuthStateChanged(user) 
-        if (user): 
-          return str(user)
-        else:
-            return 0
-        
         

@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect
 from backends.login import loginBp
+from backends.reset import resetBp
 from backends.signup import signupBp
 from backends.busExplorer import busExplorerBp
 import secrets
@@ -7,17 +8,19 @@ from datetime import datetime
 import requests
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16) #Creates a session key.
 
 #Register each page of the website as blueprint
 app.register_blueprint(loginBp)
+app.register_blueprint(resetBp)
 app.register_blueprint(signupBp)
 app.register_blueprint(busExplorerBp)
 
 @app.route("/", methods =['GET'])
 @app.route("/route-planner", methods=['GET'])
 def home():
-    app.secret_key = secrets.token_hex(16) #Creates a session key.
-    return render_template('route-planner.html')
+    user_email = session.get('user_email')
+    return render_template('route-planner.html', user_email=user_email)
 
 
 def displayDriveInfo(data):
@@ -45,6 +48,12 @@ def displayPTInfo(data):
                 continue
         counter+=1
     return render_template("route-planner.html", route1Steps=routeSteps[0], route2Steps=routeSteps[1], route3Steps=routeSteps[2])
+
+@app.route("/logout")
+def logout():
+    session.pop('email', None)
+    return redirect ("/route-planner")
+
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
