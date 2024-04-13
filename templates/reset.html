@@ -34,19 +34,11 @@
             {% endif %}
           {% endwith %}
 
-          <form method="post" action="/accReset">
+          <form method="post" action="/resetPwd">
             <div class="username-box">
               <label for="email">Email:</label>
               <input id="email" class="username-textbox" type="text" name="email" placeholder="Email">
             </div>
-            <div class="password-box">
-              <label for="password">Password:</label>
-              <input id="password" class="password-textbox" type="password" name="password" placeholder="Password">
-            </div>
-            <div class="password-box">
-                <label for="confirm-password">Confirm Password:</label>
-                <input id="confirm-password" class="password-textbox" type="confirm-password" name="confirm-password" placeholder="Password">
-              </div>
             <button class="reset-button">Reset</button>
           </form>
 
