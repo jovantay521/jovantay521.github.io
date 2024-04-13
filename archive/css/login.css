@@ -55,7 +55,18 @@
   background-color: #da6450;
   color: white;
   font-size: 16px;
-  margin: 25px 0;
+  margin: 25px auto;
+  padding: 10px 65px;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+}
+.reset-button{
+  display: block;
+  background-color: #da6450;
+  color: white;
+  font-size: 16px;
+  margin: 25px auto;
   padding: 10px 65px;
   text-decoration: none;
   border: none;
@@ -92,3 +103,12 @@
   color: white;
 }
 
+.login-page-button{
+  align-items: left;
+  border: none;
+  background: none;
+  color: rgb(218, 76, 33);
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: underline;
+}

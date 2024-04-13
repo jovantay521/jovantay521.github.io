@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
+    <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/general.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/header.css')}}">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/website.css')}}">
@@ -23,7 +23,7 @@
 
     <div class="content-wrapper">
       <div class="sign-up-container">
-        <div class="sign-up">
+        <div class="sign-up">          
           {% with messages = get_flashed_messages() %}
             {% if messages %}
               <ul class="flashes">
@@ -33,25 +33,27 @@
               </ul>
             {% endif %}
           {% endwith %}
-          <form method="post" action="/accSignUp">
-            <div class="username-box">
-              <label for="username">Username:</label>
-              <input id="username" class="username-textbox" type="text" name="username" placeholder="Username">
-            </div>
+
+          <form method="post" action="/accReset">
             <div class="username-box">
               <label for="email">Email:</label>
               <input id="email" class="username-textbox" type="text" name="email" placeholder="Email">
-
             </div>
             <div class="password-box">
               <label for="password">Password:</label>
               <input id="password" class="password-textbox" type="password" name="password" placeholder="Password">
             </div>
-            <button class="login-button">Sign Up</button>
+            <div class="password-box">
+                <label for="confirm-password">Confirm Password:</label>
+                <input id="confirm-password" class="password-textbox" type="confirm-password" name="confirm-password" placeholder="Password">
+              </div>
+            <button class="reset-button">Reset</button>
           </form>
 
-          <a class="sign-up-button" href="/login">Have an account? Login here</a>
-<!--          <button class="sign-up-button" id="loginBtn">Have an account? Login here</button>-->
+          <a class="login-page-button" href="/login">Return to Login Page</a>
+<!--      <button class="reset-password-button" href="/reset">Forgot your password?</button>-->
+<!--      <a class="sign-up-button" href="/signup">Don't have an account? Sign up here</a>-->
+<!--          <button id="signupBtn" class="sign-up-button">Don't have an account? Sign up here</button>-->
         </div>
       </div>
     </div>
