@@ -1,9 +1,25 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, session, redirect
+from database.dbAccOperation import  dbAccOp
 
 loginBp = Blueprint("loginBp",__name__)
 
-@loginBp.route("/login", methods =['GET','POST'])
+#renders page
+@loginBp.route("/login", methods =['GET'])
 def login():
 
     return render_template('login.html')
 
+#onclick event on form submission
+@loginBp.post("/accLogin")
+def accLogin_post():
+    email = request.form['email']
+    pwd = request.form['password']
+
+    userdetails = [email, pwd]
+    result = dbAccOp.accLogin(userdetails)
+    if (result != 0):
+        # print("Account " + username + "has logged in")
+        session['username'] = email
+        return redirect("/route-planner")
+    else:
+        return redirect("/login")
