@@ -69,8 +69,20 @@
       </form>
 
       <div id="routeData", style="float: right; width:150px;">
-        {% for data in routeSteps %}
-          <div class="routeSteps" style="float: right;">
+        {% for data in route1Steps %}
+          <div class="route1Steps" style="float: right;">
+            {{ data }}
+          </div>
+        {% endfor %}
+
+        {% for data in route2Steps %}
+          <div class="route2Steps" style="float: right;">
+            {{ data }}
+          </div>
+        {% endfor %}
+
+        {% for data in route3Steps %}
+          <div class="route3Steps" style="float: right;">
             {{ data }}
           </div>
         {% endfor %}
