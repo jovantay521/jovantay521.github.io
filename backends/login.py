@@ -33,7 +33,6 @@ def accLogin_post():
 
         if (result != 0):
             # print("Account " + username + "has logged in")
-            session['username'] = email
             return redirect("/home")
         else:
             return redirect("/login")
