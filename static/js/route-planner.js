@@ -69,6 +69,7 @@ class Route
             // div.style.backgroundColor= this.color;
             routeData.appendChild(div);
         })
+        routeData.style.display = "block";
     }
 
     removeAllInfo()
