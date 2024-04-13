@@ -65,14 +65,17 @@
         <input type="text" class="form-control" id="dstInput" name="end" placeholder="Enter your destination">
         <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button> -->
       </div>
-      <div class="d-grid">
-        <button class="btn btn-primary btn-sm" type="submit" id="calBtn">Enter</button>
+      
+      <div class="container-fluid">
+        <button class="btn btn-primary btn-block" type="submit" id="calBtn">Enter</button>
       </div>
     </form>
   </div>
-
-  <ul id="autocomplete"></ul>
-
+  
+  <div class="card mt-2 ms-2 p-2" style="width: 18rem;">
+    <ul id="autocomplete" class="list-group"></ul>
+  </div>
+  
   <div id="routeData" , style="float: right; width:150px;">
     {% for data in route1Steps %}
     <div class="route1Steps" style="float: right;">

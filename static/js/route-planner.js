@@ -184,7 +184,7 @@ function autocomplete(Input){
             {
                 calBtn.style.display="none";
                 var li = document.createElement('li');
-                li.classList.add("li-autocomplete");
+                li.classList.add("list-group-item");
                 li.textContent=data.results[loop].ADDRESS;
                 ul.appendChild(li);
 
