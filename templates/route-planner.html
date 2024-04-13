@@ -56,7 +56,7 @@
         <option value="pt">Public Transport</option>
         <option value="drive">Drive</option>
       </select>
-      
+
       <div class="input-group mb-2">
         <input type="text" class="form-control" id="srcInput" name="start" placeholder="Enter your address">
         <!-- <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button> -->
@@ -70,12 +70,24 @@
       </div>
     </form>
   </div>
-  
+
   <ul id="autocomplete"></ul>
-  
+
   <div id="routeData" , style="float: right; width:150px;">
-    {% for data in routeSteps %}
-    <div class="routeSteps" style="float: right;">
+    {% for data in route1Steps %}
+    <div class="route1Steps" style="float: right;">
+      {{ data }}
+    </div>
+    {% endfor %}
+
+    {% for data in route2Steps %}
+    <div class="route2Steps" style="float: right;">
+      {{ data }}
+    </div>
+    {% endfor %}
+
+    {% for data in route3Steps %}
+    <div class="route3Steps" style="float: right;">
       {{ data }}
     </div>
     {% endfor %}
