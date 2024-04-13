@@ -6,6 +6,7 @@ const calBtn = document.getElementById("calBtn");
 const ul = document.getElementById("autocomplete")
 const form = document.getElementById("input-form")
 const routeData = document.getElementById("routeData");
+const routeInfoButtons = document.querySelectorAll(".routeInfoButton");
 
 const colors = ["red", "blue","green"];
 var dstIcon = L.icon({
@@ -92,7 +93,7 @@ class Route
 var routeContainer=[]; //array to store Route objects
 
 srcInput.addEventListener('input', ()=>{autocomplete(srcInput)});
-dstInput.addEventListener('input', ()=>{autocomplete(dstInput)});
+dstInput.addEventListener('input', ()=>{autocomplete(dstInput)}); 
 
 form.addEventListener('submit', function(event){
     event.preventDefault();
@@ -102,6 +103,9 @@ form.addEventListener('submit', function(event){
             element.removeAllInfo();
         })
         routeContainer=[];
+        routeInfoButtons.forEach(button=>{
+            routeData.append(button);
+        })
     }
     
     type = routeType.value;
