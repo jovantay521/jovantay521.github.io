@@ -37,6 +37,7 @@ class dbAccOp:
 
         firebase = dbConnection().openConn()
         auth_Mod = firebase.auth()
+
         result = auth_Mod.sign_in_with_email_and_password(email, pwd)
         if (result != 0):
             return result
@@ -72,5 +73,20 @@ class dbAccOp:
                 except Exception as err:
                     return str(err)
                 
-            return 1
+            return 1 #if email not valid/does not exist
+        
+    @staticmethod
+    def userSignInCheck():
+        firebase = dbConnection().openConn()
+        auth_Mod = firebase.auth()
+        db = firebase.database()
+
+        user = auth_Mod.currentUser
+
+        auth_Mod.onAuthStateChanged(user) 
+        if (user): 
+          return str(user)
+        else:
+            return 0
+        
         
