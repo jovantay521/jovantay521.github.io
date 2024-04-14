@@ -37,6 +37,7 @@ class dbAccOp:
 
         firebase = dbConnection().openConn()
         auth_Mod = firebase.auth()
+
         result = auth_Mod.sign_in_with_email_and_password(email, pwd)
         if (result != 0):
             return result
@@ -52,7 +53,7 @@ class dbAccOp:
     #maybe when logout is coded, can shift the session pop to where it is and remove from here
     @staticmethod
     def accLogout():
-        session.pop('username',None)
+        session.pop('email',None)
 
     
     @staticmethod
@@ -72,5 +73,6 @@ class dbAccOp:
                 except Exception as err:
                     return str(err)
                 
-            return 1
+            return 1 #if email not valid/does not exist
+
         

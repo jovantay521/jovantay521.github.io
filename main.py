@@ -1,5 +1,6 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, session, redirect
 from backends.login import loginBp
+from backends.reset import resetBp
 from backends.signup import signupBp
 from backends.busExplorer import busExplorerBp
 from backends.carpark import carparkBp
@@ -9,9 +10,11 @@ from datetime import datetime
 import requests
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(16) #Creates a session key.
 
 #Register each page of the website as blueprint
 app.register_blueprint(loginBp)
+app.register_blueprint(resetBp)
 app.register_blueprint(signupBp)
 app.register_blueprint(carparkBp)
 app.register_blueprint(resetBp)
@@ -21,8 +24,8 @@ app.register_blueprint(busExplorerBp)
 @app.route("/", methods =['GET'])
 @app.route("/route-planner", methods=['GET'])
 def home():
-    app.secret_key = secrets.token_hex(16) #Creates a session key.
-    return render_template('route-planner.html')
+    user_email = session.get('user_email')
+    return render_template('route-planner.html', user_email=user_email)
 
 
 def displayDriveInfo(data):
@@ -50,6 +53,12 @@ def displayPTInfo(data):
                 continue
         counter+=1
     return render_template("route-planner.html", route1Steps=routeSteps[0], route2Steps=routeSteps[1], route3Steps=routeSteps[2])
+
+@app.route("/logout")
+def logout():
+    session.pop('email', None)
+    return redirect ("/route-planner")
+
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
@@ -80,8 +89,8 @@ def cal_route():
     time= datetime_list[1]
     time="20:00:00" #use when past pt time if not comment out
 
-    #to be refreshed on sun 14/4
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEyODI1NzU3LCJleHAiOjE3MTMwODQ5NTcsIm5iZiI6MTcxMjgyNTc1NywianRpIjoiMkx6WGZxMHl4NWI2RWd4aCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.lMaDzogTANdmo4JiMtXuMleBdJVD6OsDT8DAhFuQu18"
+    #to be refreshed on wed 17/4
+    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaW50ZXJuYWwtYWxiLW9tLXByZGV6aXQtaXQtMTIyMzY5ODk5Mi5hcC1zb3V0aGVhc3QtMS5lbGIuYW1hem9uYXdzLmNvbS9hcGkvdjIvdXNlci9wYXNzd29yZCIsImlhdCI6MTcxMzA3MzkzMiwiZXhwIjoxNzEzMzMzMTMyLCJuYmYiOjE3MTMwNzM5MzIsImp0aSI6Iko0aUR6VmtIMXVadjdub3IiLCJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.3CnAVoe1hcalNu8wEUyPUprGxvwcXxLleXSGwk1MwwA"
     headers = {"Authorization": token}
     if routeType == "pt":
         routing_url =  f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}&date={date}&time={time}&mode={mode}&numItineraries=3"
