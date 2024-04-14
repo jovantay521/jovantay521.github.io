@@ -203,6 +203,10 @@ function autocomplete(Input){
                 var li = document.createElement('li');
                 li.classList.add("list-group-item");
                 li.textContent=data.results[loop].ADDRESS;
+                if(Input.value.trim()==li.textContent.trim())
+                {
+                    return;
+                }
                 ul.appendChild(li);
 
                 li.addEventListener('click', ()=>{ //add address to input box
