@@ -1,4 +1,5 @@
 import requests
+from database.dbConnection import dbConnection
 
 #HDB carpark information
 resourceID = 'resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c'
@@ -30,9 +31,12 @@ def getCarparkNearAddr(address) :
     carparkInfoResponse_json = carparkInfoResponse.json()
     return carparkInfoResponse_json['result']['records']
 
-testResult1 = getInfoByCpAddress("SERANGOON AVENUE 2")
-print(testResult1)
-
+def testdelete():
+    uid = "RJg4MZ92yUMWEekLyTHv45XgFhv1"
+    firebase = dbConnection.openConn()
+    #Access firebase database
+    db = firebase.database()
+    db.child("users").child(uid).child("SavedRoutes").remove()
 
 # CARPARK_NUMBER = 3
 # response = requests.get('https://api.data.gov.sg/v1/transport/carpark-availability')

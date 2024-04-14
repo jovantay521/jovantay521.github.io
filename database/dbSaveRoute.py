@@ -1,5 +1,4 @@
 from database.dbConnection import dbConnection
-from firebase_admin import db
 from flask import session
 
 class dbSaveRoute:
@@ -14,15 +13,19 @@ class dbSaveRoute:
         #Retrieve data to check save slot limit. User can only save 10 routes.
         savedRoutes = db.child("users").child(uid).child("SavedRoutes").get()
 
-        # limit = dbSaveRoute.checkSlotLimit(savedRoutes)
+        limit = dbSaveRoute.checkSlotLimit(savedRoutes)
         # if (limit <= 9):
-        #Update user's save slot with newly created route
-        db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
-        #     return 1
+        #     #Update user's save slot with newly created route
+        #     # db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
+        #     print("success")
+        # else:
+        #     print("failed")
+
+    @staticmethod
+    def checkSlotLimit(savedata):
+        count =0
+        # if (savedata.val() is not None):
+        #
         # else:
         #     return 0
 
-    # @staticmethod
-    # def checkSlotLimit(data):
-    #     if (data is not None):
-    #         print("success")
