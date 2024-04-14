@@ -77,12 +77,15 @@ class Route
     displaySavedRouteInfo()
     {
         var div = document.createElement("div");
+        var ul = document.createElement("ul");
+        ul.classList.add(".collapse", ".list-group", ".list-group-flush", ".list-group-numbered");
         this.routeInfo.forEach(str=>{
             var li = document.createElement("li");
             li.classList.add(".list-group-item");
             li.textContent=str;
-            div.appendChild(li);
+            ul.appendChild(li);
         })
+        div.append(ul);
         routeData.appendChild(div);
         routeData.style.display = "block";
     }
@@ -304,6 +307,9 @@ function loadRoutes()
             var route = new Route(element.source, element.destination, element.routeType, element.encodedRoute, element.routeInfo,"red");
             savedRoutes.push(route);
             var div=document.createElement('div');
+            div.classList.add('rounded');
+            div.classList.add('border');
+            div.classList.add('p-3');
             div.textContent= `${counter}: ${element.name}`;
             counter++;
     
