@@ -223,7 +223,6 @@ function autocomplete(Input){
             ul.style.display="inline";
             return;
         })
-
     }
 }
 

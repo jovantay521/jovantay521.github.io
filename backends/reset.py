@@ -1,5 +1,7 @@
 from flask import Blueprint, render_template, request, session, redirect, flash
 from database.dbAccOperation import  dbAccOp
+from requests.exceptions import HTTPError
+import re
 
 resetBp = Blueprint("resetBp",__name__)
 
@@ -9,22 +11,18 @@ def reset():
     return render_template('reset.html')
 
 #onclick event on form submission
-@resetBp.post("/accReset")
-def accReset_post():
+@resetBp.post("/resetPwd")
+def resetPwd_post():
     email = request.form['email']
-    pwd = request.form['password']
-    cfm_pwd = request.form['confirm-password']
+    
+    result = dbAccOp.resetPwd(email)
 
-
-    if not email or not pwd or not cfm_pwd:
-        flash('Please fill in all fields.')
-        return redirect("/reset")
-
-    userdetail = [email]
-    result = dbAccOp.accReset(userdetail)
-    if (result != 0):
-        # print("Account " + username + "reset password successfully")
-        session['username'] = email
+    if(result) == 0:
+        flash("Password reset email set successfully. Please relogin.")
         return redirect("/login")
+    elif (result) == 1:
+        flash("Invalid email. User does not exist.")
+        return redirect("/reset")
     else:
+        flash("Please enter an email in the field below.")
         return redirect("/reset")

@@ -42,7 +42,14 @@
           </li>
         </ul>
 
-        <a class="btn btn-primary" href="/login" role="button">Login</a>
+        <!-- log out button only appears if user is logged in (tracked by session)-->
+        {% if 'email' in session %}
+        <a class="btn btn-primary" href="/login" role="button">Login</a> 
+        <a id= "logout-btn" class="btn btn-primary " href="/logout" role="button">Log out</a> 
+        {% else %}
+        <a class="btn btn-primary" href="/login" role="button">Login</a> 
+        {% endif %}
+
       </div>
       <!-- end of nav -->
     </div>
@@ -75,7 +82,7 @@
 
       <!-- enter button -->
       <div class="d-grid">
-        <button class="btn btn-primary" type="submit" id="calBtn">Enter</button>
+        <button class="btn btn-primary" type="submit" id="calBtn">Begin Search</button>
       </div>
     </form>
 

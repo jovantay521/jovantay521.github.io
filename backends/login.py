@@ -34,14 +34,14 @@ def accLogin_post():
 
         if (result != 0):
             # print("Account " + username + "has logged in")
-            session['username'] = email
-            return redirect("/home")
+            session['email'] = email
+            return redirect("/route-planner")
         else:
             return redirect("/login")
 
     except HTTPError as http_err:
         if "INVALID_LOGIN_CREDENTIALS" in str(http_err):
-            flash("Email/Password does not exist. Please try again.")
+            flash("Email/Password does not exist or is incorrect. Please try again.")
             return redirect("/login")
         else:
             flash("An error has occurred. Please try again later.")
