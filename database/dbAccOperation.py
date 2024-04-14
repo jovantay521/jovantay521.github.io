@@ -78,4 +78,4 @@ class dbAccOp:
                 except Exception as err:
                     return str(err)
                 
-            return 1 #if email not valid/does not exist
+        return 1 #if email not valid/does not exist
