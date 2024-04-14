@@ -4,6 +4,7 @@ from backends.signup import signupBp
 from backends.busExplorer import busExplorerBp
 from backends.reset import resetBp
 from database.dbSaveRoute import dbSaveRoute
+from database.dbAccOperation import dbAccOp
 import secrets
 from datetime import datetime
 import requests
@@ -23,7 +24,6 @@ app.register_blueprint(busExplorerBp)
 def home():
     user_email = session.get('user_email')
     return render_template('route-planner.html', user_email=user_email)
-
 
 def displayDriveInfo(data):
     routeSteps = [[], [], []]
@@ -53,8 +53,8 @@ def displayPTInfo(data):
 
 @app.route("/logout")
 def logout():
-    session.pop('email', None)
-    return redirect ("/route-planner")
+    dbAccOp.accLogout()
+    return redirect("/route-planner")
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
@@ -137,6 +137,25 @@ def saveRoute():
         return "Success"
     else:
         return "Failure"
+
+
+
+@app.route("/getRoute", methods=['GET'])
+def getRoute():
+    allSavedRoutes = {"routes" : []}
+    savedRoutes=dbSaveRoute.retrieveSaveRoute()
+    for route in savedRoutes.each():
+        name = route.key()
+        source = route.val()['source']
+        destination = route.val()['destination']
+        routeType = route.val()['routeType']
+        encodedRoute = route.val()['encodedRoute']
+        routeInfo = route.val()['routeInfo']
+        data = {"name": name,"source": source, "destination": destination, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
+        allSavedRoutes['routes'].append(data)
+
+    return jsonify(allSavedRoutes)
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

@@ -1,5 +1,4 @@
 from database.dbConnection import dbConnection
-from firebase_admin import auth
 from flask import session
 
 class dbAccOp:
@@ -58,7 +57,7 @@ class dbAccOp:
     #maybe when logout is coded, can shift the session pop to where it is and remove from here
     @staticmethod
     def accLogout():
-        session.pop('email', None)
+        session.pop('Email', None)
         session.pop('token', None)
         session.pop('uid', None)
     
