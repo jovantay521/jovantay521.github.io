@@ -289,7 +289,14 @@ function saveRoute(routeNum)
     }).then(res=>{
         return res.text();
     }).then(txt=>{
-        console.log(txt);
+        if(txt=="Success")
+        {
+            alert("Route saved successfully.");
+        }
+        else
+        {
+            alert("Failed to save. Please try again.");
+        }
     });
 }
 
@@ -335,6 +342,9 @@ function loadRoutes()
             delBtn.addEventListener('click',function (){
                 var parentDiv = this.parentElement;
                 var routeName=parentDiv.textContent.slice(3);
+                var validator=confirm(`Confirm deletion of ${routeName}`);
+                if(!validator)
+                    return;
                 var form = new FormData();
                 form.append('name',routeName);
                 
@@ -347,6 +357,7 @@ function loadRoutes()
                     if(txt=="success")
                     {
                         loadRoutes();
+                        alert("Route successfully deleted.");
                     }
                     return;
                 })
