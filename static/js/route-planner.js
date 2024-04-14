@@ -332,6 +332,26 @@ function loadRoutes()
             delBtn.setAttribute('type', 'button');
             delBtn.setAttribute('aria-label', 'Close');
 
+            delBtn.addEventListener('click',function (){
+                var parentDiv = this.parentElement;
+                var routeName=parentDiv.textContent.slice(3);
+                var form = new FormData();
+                form.append('name',routeName);
+                
+                fetch("/delRoute",{
+                    method:"POST",
+                    body:form
+                }).then(res=>{
+                    return res.text();
+                }).then(txt=>{
+                    if(txt=="success")
+                    {
+                        loadRoutes();
+                    }
+                    return;
+                })
+
+            })
                 
             div.addEventListener('click',function(event){
                 routeContainer.forEach(element=>{

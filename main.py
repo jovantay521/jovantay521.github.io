@@ -157,5 +157,11 @@ def getRoute():
     return jsonify(allSavedRoutes)
 
 
+@app.route("/delRoute", methods=["POST"])
+def delRoute():
+    name = request.form["name"]
+    dbSaveRoute.deleteSaveRotue(name)
+    return "success"
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
