@@ -1,7 +1,4 @@
 import requests
-import geocoder
-import geopy
-from geopy.geocoders import Nominatim
 
 #HDB carpark information
 resourceID = 'resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c'
@@ -27,30 +24,6 @@ def convertCoord(x,y):
     response_json = response.json()
     coordinates = [response_json['latitude'], response_json['longitude']]
     return coordinates
-
-
-g = geocoder.ip('me')
-print("Your Location is:")
-print(g.latlng)
-
-def get_user_location():
-    geolocator = Nominatim(user_agent="location_app")
-    user_location = None
-
-    while user_location is None:
-        user_input = input("Please enter the location you want (city, country, etc.): ")
-        try:
-            user_location = geolocator.geocode(user_input)
-        except Exception as e:
-            print("Error occurred:", e)
-            print("Please try again.")
-
-    print("Your GPS coordinates:")
-    print(f"Latitude: {user_location.latitude}")
-    print(f"Longitude: {user_location.longitude}")
-
-if __name__ == "__main__":
-    get_user_location()
 
 # CARPARK_NUMBER = 3
 # response = requests.get('https://api.data.gov.sg/v1/transport/carpark-availability')

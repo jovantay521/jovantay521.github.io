@@ -20,7 +20,6 @@ app.register_blueprint(carparkBp)
 app.register_blueprint(resetBp)
 app.register_blueprint(busExplorerBp)
 
-
 @app.route("/", methods =['GET'])
 @app.route("/route-planner", methods=['GET'])
 def home():
