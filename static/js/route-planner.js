@@ -228,6 +228,11 @@ function autocomplete(Input){
 
 function saveRoute(routeNum)
 {
+    var routeName = prompt("Enter the name of the route: ");
+    if(routeName==null)
+    {
+        routeName = "saved route";
+    }
     var route = routeContainer[routeNum-1];
     var routeInfoStr=[];
     route.routeInfo[0].querySelectorAll(".list-group-item").forEach(element=>
@@ -236,6 +241,7 @@ function saveRoute(routeNum)
     })
 
     var form = new FormData();
+    form.append('name', routeName);
     form.append('source', route.source);
     form.append('destination',route.destination);
     form.append('routeType',route.routeType);
