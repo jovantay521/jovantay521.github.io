@@ -8,6 +8,8 @@ const form = document.getElementById("input-form")
 const routeData = document.getElementById("routeData");
 const routeInfoButtons = document.querySelectorAll(".routeInfoButton");
 
+//const savedRouteButton = document.getElementById("savedRoutes");
+
 const colors = ["red", "blue","green"];
 var dstIcon = L.icon({
     iconUrl: '/static/images/dstIcon.png',
@@ -72,6 +74,21 @@ class Route
         routeData.style.display = "block";
     }
 
+    displaySavedRouteInfo()
+    {
+        var div = document.createElement("div");
+        this.routeInfo.forEach(str=>{
+            var li = document.createElement("li");
+            li.classList.add(".list-group-item");
+            li.textContent=str;
+            div.appendChild(li);
+        })
+        routeData.appendChild(div);
+        routeData.style.display = "block";
+    }
+
+
+
     removeAllInfo()
     {
         if (this.polyline.length!=0)
@@ -88,10 +105,14 @@ class Route
             })
         }
         routeData.innerHTML="";
+        routeInfoButtons.forEach(button=>{
+            routeData.append(button);
+        })
     }
 }
 
 var routeContainer=[]; //array to store Route objects
+var savedRoutes =[];
 
 srcInput.addEventListener('input', ()=>{autocomplete(srcInput)});
 dstInput.addEventListener('input', ()=>{autocomplete(dstInput)}); 
@@ -111,18 +132,22 @@ form.addEventListener('submit', function(event){
             element.removeAllInfo();
         })
         routeContainer=[];
-        routeInfoButtons.forEach(button=>{
-            routeData.append(button);
-        })
     }
+    savedRoutes.forEach((ele)=>{
+        ele.removeAllInfo();
+    })
 
     var currentTime= new Date;
     var options ={hour12:false, hour:"2-digit", minute:"2-digit"};
     var time = currentTime.toLocaleTimeString(undefined, options);
-    if (time>"00:00" && time<"06:00")
-        type="drive";
+    if (time.trim()>"00:00" && time.trim()<"06:00")
+        {
+            type="drive";
+        }
     else
-        type = routeType.value;
+        {
+            console.log("there");
+        }
 
     const formData = new FormData(this);
     fetch("/route-planner",{
@@ -209,9 +234,9 @@ function autocomplete(Input){
                 }
                 ul.appendChild(li);
 
-                li.addEventListener('click', ()=>{ //add address to input box
+                li.addEventListener('click', (event)=>{ //add address to input box
 
-                    Input.value = li.textContent;
+                    Input.value = event.target.textContent;
                     ul.innerHTML ="";
                     ul.style.display ='none';
                     // calBtn.style.display="inline";
@@ -260,4 +285,42 @@ function saveRoute(routeNum)
     }).then(txt=>{
         console.log(txt);
     });
+}
+
+function loadRoutes()
+{
+    var menu = document.querySelector(".offcanvas-body");
+    menu.innerHTML="";
+    savedRoutes.forEach((ele)=>{
+        ele.removeAllInfo();
+    })
+    fetch("/getRoute").then(res=>{
+        return res.json();
+    }).then(data=>{
+        savedRoutes =[];
+        var allRoutes = data.routes;
+        var counter = 1;
+        allRoutes.forEach(element=>{
+            var route = new Route(element.source, element.destination, element.routeType, element.encodedRoute, element.routeInfo,"red");
+            savedRoutes.push(route);
+            var div=document.createElement('div');
+            div.textContent= `${counter}: ${element.name}`;
+            counter++;
+    
+            div.addEventListener('click',function(event){
+                routeContainer.forEach(element=>{
+                    element.removeAllInfo();
+                })
+                savedRoutes.forEach((ele)=>{
+                    ele.removeAllInfo();
+                })
+                var routeNum = parseInt(event.target.textContent[0])-1;
+                var route = savedRoutes[routeNum];
+                route.displaySavedRouteInfo();
+                route.displayRouteLine();
+
+            })
+            menu.appendChild(div);
+        })
+    })
 }

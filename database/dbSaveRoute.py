@@ -22,7 +22,7 @@ class dbSaveRoute:
             print("failed")
 
     @staticmethod
-    def retrieveSaveRoute(self):
+    def retrieveSaveRoute():
         #Open database connection
         firebase = dbConnection.openConn()
         #Access firebase database
