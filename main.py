@@ -73,17 +73,17 @@ def cal_route():
     datetime_list =now.split(" ")
     date = datetime_list[0]
     time= datetime_list[1]
-    time="20:00:00" #use when past pt time if not comment out
+    if time[:5]>"00:00" and time[:5]<"06:00":
+        routeType = "drive"
 
-    #to be refreshed on sun 14/4
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEyODI1NzU3LCJleHAiOjE3MTMwODQ5NTcsIm5iZiI6MTcxMjgyNTc1NywianRpIjoiMkx6WGZxMHl4NWI2RWd4aCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.lMaDzogTANdmo4JiMtXuMleBdJVD6OsDT8DAhFuQu18"
+    #to be refreshed on wed 17/4
+    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaW50ZXJuYWwtYWxiLW9tLXByZGV6aXQtaXQtMTIyMzY5ODk5Mi5hcC1zb3V0aGVhc3QtMS5lbGIuYW1hem9uYXdzLmNvbS9hcGkvdjIvdXNlci9wYXNzd29yZCIsImlhdCI6MTcxMzA3MzkzMiwiZXhwIjoxNzEzMzMzMTMyLCJuYmYiOjE3MTMwNzM5MzIsImp0aSI6Iko0aUR6VmtIMXVadjdub3IiLCJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.3CnAVoe1hcalNu8wEUyPUprGxvwcXxLleXSGwk1MwwA"
     headers = {"Authorization": token}
     if routeType == "pt":
         routing_url =  f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}&date={date}&time={time}&mode={mode}&numItineraries=3"
     else: #for driving/cycling/walking
         routing_url = f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}"
     route_response = requests.request("GET", routing_url, headers=headers).json()
-
     template=None
     if routeType == "pt":
         template = displayPTInfo(route_response["plan"]["itineraries"])

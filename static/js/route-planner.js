@@ -26,10 +26,10 @@ var startIcon = L.icon({
 
 class Route
 {
-    constructor(type, encodedRoute, routeInfo, color)  //encodedRoute is an array and routeInfo is a nodelist
+    constructor(source, destination, type, encodedRoute, routeInfo, color)  //encodedRoute is an array and routeInfo is a nodelist
     {
-        //this.source=source;
-        //this.destination=destination;
+        this.source=source;
+        this.destination=destination;
         this.routeType=type;
         this.routeInfo = routeInfo;
         this.encodedRoute = encodedRoute;
@@ -98,6 +98,10 @@ dstInput.addEventListener('input', ()=>{autocomplete(dstInput)});
 
 form.addEventListener('submit', function(event){
     event.preventDefault();
+
+    var src = srcInput.value;
+    var dst = dstInput.value;
+
     if(routeContainer.length>0)
     {
         routeContainer.forEach(element=>{
@@ -108,8 +112,14 @@ form.addEventListener('submit', function(event){
             routeData.append(button);
         })
     }
-    
-    type = routeType.value;
+
+    var currentTime= new Date;
+    var options ={hour12:false, hour:"2-digit", minute:"2-digit"};
+    var time = currentTime.toLocaleTimeString(undefined, options);
+    if (time>"00:00" && time<"06:00")
+        type="drive";
+    else
+        type = routeType.value;
 
     const formData = new FormData(this);
     fetch("/route-planner",{
@@ -125,7 +135,7 @@ form.addEventListener('submit', function(event){
             tempElement.innerHTML = data.template;
             for(var i=1;i<=3;i++)
             {
-                if(tempElement.querySelectorAll(`.route${i}Steps`)!=null)
+                if(tempElement.querySelectorAll(`.route${i}Steps > .list-group-item`)!=null)
                     steps.push(tempElement.querySelectorAll(`.route${i}Steps`));
             }
         }
@@ -137,7 +147,7 @@ form.addEventListener('submit', function(event){
                 data.route_response.plan.itineraries[i].legs.forEach((element)=>{
                     encoded_route.push(element.legGeometry.points);
                 })
-                var route = new Route(type,encoded_route,steps[i],colors[i]);
+                var route = new Route(src,dst,type,encoded_route,steps[i],colors[i]);
                 routeContainer.push(route);
             }
         }
@@ -155,7 +165,7 @@ form.addEventListener('submit', function(event){
             for(var i=0;i<encoded.length;i++){
                 var encodedRoute = [];
                 encodedRoute.push(encoded[i]);
-                var route= new Route(type,encodedRoute,steps[i],colors[i]);
+                var route= new Route(src,dst,type,encodedRoute,steps[i],colors[i]);
                 routeContainer.push(route);
             }
         }
@@ -214,7 +224,24 @@ function autocomplete(Input){
     }
 }
 
-function calRoute()
+function saveRoute(routeNum)
 {
-    console.log("Do route calculation");
+    var route = routeContainer[routeNum-1];
+    var routeInfoStr=[];
+    route.routeInfo[0].querySelectorAll(".list-group-item").forEach(element=>
+    {
+        routeInfoStr.push(element.textContent);
+    })
+
+    var form = new FormData();
+    form.append('source', route.source);
+    form.append('destination',route.destination);
+    form.append('routeType',route.routeType);
+    form.append('encodedRoute',route.encodedRoute);
+    form.append('routeInfo',JSON.stringify(routeInfoStr));
+
+    fetch("/",{         //route to be filled
+        method: "POST",
+        body: form
+    }).then();
 }
