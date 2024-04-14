@@ -295,7 +295,7 @@ function saveRoute(routeNum)
         }
         else
         {
-            alert("Failed to save. Please try again.");
+            alert("Failed to save, limit reached. Please delete a save route.");
         }
     });
 }
