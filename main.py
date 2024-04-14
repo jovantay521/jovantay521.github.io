@@ -53,7 +53,7 @@ def displayPTInfo(data):
 
 @app.route("/logout")
 def logout():
-    dbAccOp.accLogout()
+    session.pop('email', None)
     return render_template("route-planner.html")
 
 @app.route("/route-planner", methods=['POST'])
