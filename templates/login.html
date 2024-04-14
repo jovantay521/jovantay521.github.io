@@ -84,7 +84,7 @@
               <input id="password" class="form-control" type="password" name="password">
             </div>
 
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
           </form>
 
           <!-- warning messages -->
@@ -103,8 +103,12 @@
 
       <div class="card" style="width: 500px;">
         <div class="card-body">
-          <a class="reset-password-button" href="/reset">Forgot your password?</a><br>
-          <a class="sign-up-button" href="/signup">Don't have an account? Sign up here</a>
+          <div class="resetPw">
+            <a class="reset-password-button" href="/reset" style="display: flex; justify-content: center; align-items: center;">Forgot your password?</a>
+          </div>
+          <div class="sign-up">
+            <a class="sign-up-button" href="/signup" style="display: flex; justify-content: center; align-items: center;">Don't have an account? Sign up here</a>
+          </div>
         </div>
       </div>
     </div>
