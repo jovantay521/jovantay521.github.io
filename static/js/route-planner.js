@@ -319,10 +319,23 @@ function loadRoutes()
             var div=document.createElement('div');
             var delBtn = document.createElement('button');
 
+
             div.textContent= `${counter}: ${element.name}`;
             counter++;
 
             div.appendChild(delBtn);
+
+            //hover
+            div.onmouseover = function() {
+                div.style.cursor = 'pointer';
+            }
+            div.onmouseout = function() {
+                div.style.cursor = 'auto';
+            }
+            div.onclick = function() {
+                div.style.color = 'red';
+            }
+
 
             //separate delBtn with elements
             div.style.display = 'flex';
@@ -332,6 +345,7 @@ function loadRoutes()
             div.classList.add('rounded'); 
             div.classList.add('border');
             div.classList.add('p-3');
+            div.classList.add('hover-overlay');
             
             //bootstrap for delBtn
             delBtn.classList.add('btn-close');
