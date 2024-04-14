@@ -1,10 +1,20 @@
+from flask import Blueprint, render_template
 import requests
 import geocoder
-import geopy
-from geopy.geocoders import Nominatim
+
+carparkBp = Blueprint("carparkBp",__name__)
+
+@carparkBp.route("/carpark", methods =['GET'])
+def carpark():
+
+    return render_template('carpark-finder.html')
+
+# token =
+# headers = {"Authorization": token}
 
 #HDB carpark information
 resourceID = 'resource_id=139a3035-e624-4f56-b63f-89ae28d4ae4c'
+
 
 def getInfoByCpAddress(address) :
     carparkInfoResponse = requests.get('https://data.gov.sg/api/action/datastore_search?' + resourceID + '&q=' + '{"address":"' + address + '"}' )
@@ -16,11 +26,9 @@ def getInfoByCpNumber(carpark_number) :
     carparkInfoResponse_json = carparkInfoResponse.json()
     return carparkInfoResponse_json['result']['records']
 
+
 # url request to convert coordinates from SVY21 format to WGS84 format
 def convertCoord(x,y):
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEyODI1NzU3LCJleHAiOjE3MTMwODQ5NTcsIm5iZiI6MTcxMjgyNTc1NywianRpIjoiMkx6WGZxMHl4NWI2RWd4aCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.lMaDzogTANdmo4JiMtXuMleBdJVD6OsDT8DAhFuQu18"
-    headers = {"Authorization": token}
-
     #Longtitude is X coordinate and Latitude is Y coordinate
     url = 'https://www.onemap.gov.sg/api/common/convert/3414to4326?X=' + str(x) + '&Y=' + str(y)
     response = requests.request("GET", url, headers=headers)
@@ -29,28 +37,6 @@ def convertCoord(x,y):
     return coordinates
 
 
-g = geocoder.ip('me')
-print("Your Location is:")
-print(g.latlng)
-
-def get_user_location():
-    geolocator = Nominatim(user_agent="location_app")
-    user_location = None
-
-    while user_location is None:
-        user_input = input("Please enter the location you want (city, country, etc.): ")
-        try:
-            user_location = geolocator.geocode(user_input)
-        except Exception as e:
-            print("Error occurred:", e)
-            print("Please try again.")
-
-    print("Your GPS coordinates:")
-    print(f"Latitude: {user_location.latitude}")
-    print(f"Longitude: {user_location.longitude}")
-
-if __name__ == "__main__":
-    get_user_location()
 
 # CARPARK_NUMBER = 3
 # response = requests.get('https://api.data.gov.sg/v1/transport/carpark-availability')
