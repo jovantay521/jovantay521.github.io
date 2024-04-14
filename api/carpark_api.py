@@ -25,6 +25,15 @@ def convertCoord(x,y):
     coordinates = [response_json['latitude'], response_json['longitude']]
     return coordinates
 
+def getCarparkNearAddr(address) :
+    carparkInfoResponse = requests.get('https://data.gov.sg/api/action/datastore_search?' + resourceID + '&q=' + '{"address":"' + address + '"}' )
+    carparkInfoResponse_json = carparkInfoResponse.json()
+    return carparkInfoResponse_json['result']['records']
+
+testResult1 = getInfoByCpAddress("SERANGOON AVENUE 2")
+print(testResult1)
+
+
 # CARPARK_NUMBER = 3
 # response = requests.get('https://api.data.gov.sg/v1/transport/carpark-availability')
 # response_json = response.json()

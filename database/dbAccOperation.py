@@ -22,6 +22,7 @@ class dbAccOp:
             result = auth_Mod.sign_in_with_email_and_password(email, pwd)
             #Get the auth user id for creating user's savedata
             user = auth_Mod.get_account_info(result['idToken'])
+            session['token'] = result['idToken']
 
             #Create a user save data slot in database
             result = dbAccOp.createSaveDataSlot(firebase, username, email, user['users'][0]['localId'])

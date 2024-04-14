@@ -1,9 +1,9 @@
 from flask import Flask, render_template, request, jsonify, session, redirect
 from backends.login import loginBp
-from backends.reset import resetBp
 from backends.signup import signupBp
 from backends.busExplorer import busExplorerBp
 from backends.reset import resetBp
+from database.dbSaveRoute import dbSaveRoute
 import secrets
 from datetime import datetime
 import requests
@@ -54,7 +54,6 @@ def displayPTInfo(data):
 def logout():
     session.pop('email', None)
     return redirect ("/route-planner")
-
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
@@ -125,12 +124,15 @@ def saveRoute():
     encodedRoute = json.loads(request.form['encodedRoute'])
     routeInfo = json.loads(request.form['routeInfo'])
 
-    print(src)
-    print(dst)
-    print(routeType)
-    print(encodedRoute)
-    print(routeInfo)
+    # print(src)
+    # print(dst)
+    # print(routeType)
+    # print(encodedRoute)
+    # print(routeInfo)
+    data = {"source": src, "destination": dst, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
+    dbSaveRoute.saveRoute(data)
 
     return "success"
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
