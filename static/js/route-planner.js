@@ -325,6 +325,10 @@ function loadRoutes()
             div.onmouseout = function() {
                 div.style.cursor = 'auto';
             }
+            div.onclick = function() {
+                div.style.color = 'red';
+            }
+
 
             //separate delBtn with elements
             div.style.display = 'flex';
