@@ -54,6 +54,8 @@ def displayPTInfo(data):
 @app.route("/logout")
 def logout():
     session.pop('email', None)
+    session.pop('token', None)
+    session.pop('uid', None)
     return render_template("route-planner.html")
 
 @app.route("/route-planner", methods=['POST'])

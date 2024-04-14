@@ -38,7 +38,7 @@ class dbSaveRoute:
         #Access firebase database
         db = firebase.database()
         uid = session['uid']
-        db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
+        result = db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
 
     @staticmethod
     def checkSlotLimit(savedata):

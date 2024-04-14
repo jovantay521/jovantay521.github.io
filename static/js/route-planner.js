@@ -328,9 +328,11 @@ function loadRoutes()
             //hover
             div.onmouseover = function() {
                 div.style.cursor = 'pointer';
+                div.style.color = 'red';
             }
             div.onmouseout = function() {
                 div.style.cursor = 'auto';
+                div.style.color = 'white';
             }
             //onclickevent
             div.onclick = function() {
@@ -362,7 +364,7 @@ function loadRoutes()
                     return;
                 var form = new FormData();
                 form.append('name',routeName);
-                
+
                 fetch("/delRoute",{
                     method:"POST",
                     body:form
@@ -378,7 +380,7 @@ function loadRoutes()
                 })
 
             })
-                
+
             div.addEventListener('click',function(event){
                 routeContainer.forEach(element=>{
                     element.removeAllInfo();

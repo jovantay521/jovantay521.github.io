@@ -54,13 +54,7 @@ class dbAccOp:
         data = {"Username": username, "Email": email}
         db.child("users").child(uid).set(data)
 
-    #maybe when logout is coded, can shift the session pop to where it is and remove from here
-    @staticmethod
-    def accLogout():
-        session.pop('Email', None)
-        session.pop('token', None)
-        session.pop('uid', None)
-    
+
     @staticmethod
     def resetPwd(email):
         email = email
