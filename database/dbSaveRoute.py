@@ -32,6 +32,15 @@ class dbSaveRoute:
         return savedRoutes
 
     @staticmethod
+    def deleteSaveRotue(routeName):
+        #Open database connection
+        firebase = dbConnection.openConn()
+        #Access firebase database
+        db = firebase.database()
+        uid = session['uid']
+        db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
+
+    @staticmethod
     def checkSlotLimit(savedata):
         count = 0
         if (savedata.val() is not None):

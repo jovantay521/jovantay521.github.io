@@ -31,13 +31,6 @@ def getCarparkNearAddr(address) :
     carparkInfoResponse_json = carparkInfoResponse.json()
     return carparkInfoResponse_json['result']['records']
 
-def testdelete():
-    uid = "RJg4MZ92yUMWEekLyTHv45XgFhv1"
-    firebase = dbConnection.openConn()
-    #Access firebase database
-    db = firebase.database()
-    db.child("users").child(uid).child("SavedRoutes").remove()
-
 # CARPARK_NUMBER = 3
 # response = requests.get('https://api.data.gov.sg/v1/transport/carpark-availability')
 # response_json = response.json()
