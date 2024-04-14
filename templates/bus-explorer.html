@@ -40,17 +40,17 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/bus-explorer">Bus Explorer</a>
           </li>
-
-        <!-- if user is logged in-->
-         
-
         </ul>
         
         <!-- log out button only appears if user is logged in (tracked by session)-->
-        {% if 'email' in session %}
-        <a class="btn btn-primary" href="/login" role="button">Login</a> 
-        <a id= "logout-btn" class="btn btn-primary " href="/logout" role="button">Log out</a> 
-        {% else %}
+        {% if 'email' in session %}     
+        <li class="nav-item" style="list-style-type: none;">     
+          <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#savedroute-menu" aria-controls="savedroute-menu">Saved Route</button>
+        </li>
+        <li class="nav-item" style="list-style-type: none;">
+          <a id= "logout-btn" class="btn btn-primary " href="/logout" role="button">Log out</a> 
+        </li>
+          {% else %}
         <a class="btn btn-primary" href="/login" role="button">Login</a> 
         {% endif %}
 
@@ -59,6 +59,18 @@
       <!-- end of nav -->
   </nav>
   <!-- end of navbar -->
+
+  <!-- saved route menu -->
+  <div class="offcanvas offcanvas-end" id="savedroute-menu" style="width: 40%;" >
+    <div class="offcanvas-header">
+      <h5>Saved Route</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="savedroute-menu"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      <!--  input here -->
+    </div>
+  </div>
 
   <!-- map display -->
   <div id="map"></div>

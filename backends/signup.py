@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, session, redirect, flash
 from email_validator import validate_email, EmailNotValidError
+from requests.exceptions import HTTPError
 from database.dbAccOperation import dbAccOp
 import re
 
@@ -34,14 +35,25 @@ def accSignUp_post():
         v = validate_email(email)
         email = v["email"]
     except EmailNotValidError as e:
-        flash(str(e))
+        flash(str(e) + " Please try again.")
         return redirect("/signup")
 
     userdetails = [username, email, pwd]
-    result = dbAccOp.accCreate(userdetails)
-    if (result != 0):
-        session['username'] = username
-        # print("Account " + username + " was created and added to database")
-        return redirect("/route-planner")
-    else:
-        return redirect("/login")
+
+    try:
+        result = dbAccOp.accCreate(userdetails)
+        if (result != 0):
+            session['username'] = username
+            # print("Account " + username + " was created and added to database")
+            return redirect("/route-planner")
+        else:
+            return redirect("/login")
+        
+    except HTTPError as http_err:
+        if "EMAIL_EXISTS" in str(http_err):
+            flash("An existing account has already been made with this username/email. Please try again.")
+            return redirect("/signup")
+        else:
+            flash("An error has occurred. Please try again later.")
+            return redirect("/login")
+        
