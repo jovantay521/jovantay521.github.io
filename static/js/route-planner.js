@@ -314,18 +314,21 @@ function loadRoutes()
 
             div.appendChild(delBtn);
 
-            div.classList.add('rounded');
+            //separate delBtn with elements
+            div.style.display = 'flex';
+            div.style.justifyContent = 'space-between'; 
+
+            //bootstrap for div
+            div.classList.add('rounded'); 
             div.classList.add('border');
             div.classList.add('p-3');
             
+            
+            //bootstrap for delBtn
             delBtn.classList.add('btn-close');
             delBtn.classList.add('text-reset'); //inherit colour from parent class
-            delBtn.classList.add('text-end');
             delBtn.setAttribute('type', 'button');
             delBtn.setAttribute('aria-label', 'Close');
-
-            
-            
 
                 
             div.addEventListener('click',function(event){
