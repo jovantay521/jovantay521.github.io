@@ -7,30 +7,22 @@ class dbSaveRoute:
     def saveRoute(routeData, routename):
         #Open database connection
         firebase = dbConnection.openConn()
-        #Access authentication module and create user account
-        auth_Mod = firebase.auth()
-        #Get the auth user id for creating user's savedata
-        token = session['token']
-        user = auth_Mod.get_account_info(token)
-        uid = user['users'][0]['localId']
-
         #Access firebase database
         db = firebase.database()
+
+        uid = session['uid']
         #Retrieve data to check save slot limit. User can only save 10 routes.
-        savedRoutes = db.child("User_Routes").child(uid).child("SavedRoutes")
-        limit = dbSaveRoute.checkSlotLimit(savedRoutes)
+        savedRoutes = db.child("users").child(uid).child("SavedRoutes").get()
 
-        if (limit <= 10):
-            #Update user's save slot with newly created route
-            db.child("User_Routes").child(uid).child("SavedRoutes").child(routename).set(routeData)
-            return 1
-        else:
-            return 0
+        # limit = dbSaveRoute.checkSlotLimit(savedRoutes)
+        # if (limit <= 9):
+        #Update user's save slot with newly created route
+        db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
+        #     return 1
+        # else:
+        #     return 0
 
-    @staticmethod
-    def checkSlotLimit(data):
-        count = 0
-        for saveSlot in data:
-            count += 1
-
-        return count
+    # @staticmethod
+    # def checkSlotLimit(data):
+    #     if (data is not None):
+    #         print("success")

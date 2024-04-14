@@ -23,6 +23,7 @@ class dbAccOp:
             #Get the auth user id for creating user's savedata
             user = auth_Mod.get_account_info(result['idToken'])
             session['token'] = result['idToken']
+            session['uid'] = user['users'][0]['localId']
 
             #Create a user save data slot in database
             result = dbAccOp.createSaveDataSlot(firebase, username, email, user['users'][0]['localId'])
@@ -40,6 +41,9 @@ class dbAccOp:
         auth_Mod = firebase.auth()
 
         result = auth_Mod.sign_in_with_email_and_password(email, pwd)
+        user = auth_Mod.get_account_info(result['idToken'])
+        session['token'] = result['idToken']
+        session['uid'] = user['users'][0]['localId']
         if (result != 0):
             return result
         else:
@@ -49,23 +53,23 @@ class dbAccOp:
     def createSaveDataSlot(db_Conn, username, email, uid):
         db = db_Conn.database()
         data = {"Username": username, "Email": email}
-        db.child("User_Routes").child(uid).set(data)
+        db.child("users").child(uid).set(data)
 
     #maybe when logout is coded, can shift the session pop to where it is and remove from here
     @staticmethod
     def accLogout():
-        session.pop('email',None)
-
+        session.pop('email', None)
+        session.pop('token', None)
+        session.pop('uid', None)
     
     @staticmethod
     def resetPwd(email):
         email = email
-
         firebase = dbConnection().openConn()
         auth_Mod = firebase.auth()
         db = firebase.database()
 
-        users = db.child("User_Routes").get()
+        users = db.child("users").get()
         for user in users.each():
             if user.val()['Email'] == email:
                 try:
@@ -75,5 +79,3 @@ class dbAccOp:
                     return str(err)
                 
             return 1 #if email not valid/does not exist
-
-        

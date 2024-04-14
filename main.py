@@ -7,6 +7,7 @@ from database.dbSaveRoute import dbSaveRoute
 import secrets
 from datetime import datetime
 import requests
+import json
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16) #Creates a session key.
@@ -117,7 +118,6 @@ def cal_route():
 
 @app.route("/", methods=['POST'])
 def saveRoute():
-    import json
     name= request.form['name']
     src= request.form['source']
     dst= request.form['destination']
@@ -132,7 +132,7 @@ def saveRoute():
     # print(encodedRoute)
     # print(routeInfo)
     data = {"source": src, "destination": dst, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
-    result = dbSaveRoute.saveRoute(data)
+    result = dbSaveRoute.saveRoute(data, name)
     if (result == 1):
         return "Success"
     else:
