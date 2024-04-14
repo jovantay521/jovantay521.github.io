@@ -328,10 +328,13 @@ function loadRoutes()
             //hover
             div.onmouseover = function() {
                 div.style.cursor = 'pointer';
+                div.style.color = 'red';
             }
             div.onmouseout = function() {
                 div.style.cursor = 'auto';
+                div.style.color = 'white';
             }
+            //onclickevent
             div.onclick = function() {
                 div.style.color = 'red';
             }
@@ -353,30 +356,6 @@ function loadRoutes()
             delBtn.setAttribute('type', 'button');
             delBtn.setAttribute('aria-label', 'Close');
 
-            delBtn.addEventListener('click',function (){
-                var parentDiv = this.parentElement;
-                var routeName=parentDiv.textContent.slice(3);
-                var validator=confirm(`Confirm deletion of ${routeName}`);
-                if(!validator)
-                    return;
-                var form = new FormData();
-                form.append('name',routeName);
-                
-                fetch("/delRoute",{
-                    method:"POST",
-                    body:form
-                }).then(res=>{
-                    return res.text();
-                }).then(txt=>{
-                    if(txt=="success")
-                    {
-                        loadRoutes();
-                        alert("Route successfully deleted.");
-                    }
-                    return;
-                })
-
-            })
                 
             div.addEventListener('click',function(event){
                 routeContainer.forEach(element=>{
