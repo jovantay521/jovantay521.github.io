@@ -1,4 +1,5 @@
 from database.dbConnection import dbConnection
+from firebase_admin import auth
 from flask import session
 
 class dbAccOp:
@@ -36,6 +37,7 @@ class dbAccOp:
 
         firebase = dbConnection().openConn()
         auth_Mod = firebase.auth()
+
         result = auth_Mod.sign_in_with_email_and_password(email, pwd)
         if (result != 0):
             return result
@@ -51,4 +53,26 @@ class dbAccOp:
     #maybe when logout is coded, can shift the session pop to where it is and remove from here
     @staticmethod
     def accLogout():
-        session.pop('username',None)
+        session.pop('email',None)
+
+    
+    @staticmethod
+    def resetPwd(email):
+        email = email
+
+        firebase = dbConnection().openConn()
+        auth_Mod = firebase.auth()
+        db = firebase.database()
+
+        users = db.child("User_Routes").get()
+        for user in users.each():
+            if user.val()['Email'] == email:
+                try:
+                    auth_Mod.send_password_reset_email(email)
+                    return 0
+                except Exception as err:
+                    return str(err)
+                
+            return 1 #if email not valid/does not exist
+
+        
