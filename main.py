@@ -17,7 +17,6 @@ app.register_blueprint(loginBp)
 app.register_blueprint(resetBp)
 app.register_blueprint(signupBp)
 app.register_blueprint(carparkBp)
-app.register_blueprint(resetBp)
 app.register_blueprint(busExplorerBp)
 
 @app.route("/", methods =['GET'])
