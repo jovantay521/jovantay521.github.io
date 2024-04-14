@@ -289,7 +289,14 @@ function saveRoute(routeNum)
     }).then(res=>{
         return res.text();
     }).then(txt=>{
-        console.log(txt);
+        if(txt=="Success")
+        {
+            alert("Route saved successfully.");
+        }
+        else
+        {
+            alert("Failed to save, limit reached. Please delete a save route.");
+        }
     });
 }
 

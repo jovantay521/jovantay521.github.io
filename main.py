@@ -54,7 +54,7 @@ def displayPTInfo(data):
 @app.route("/logout")
 def logout():
     dbAccOp.accLogout()
-    return render_template("/route-planner")
+    return render_template("route-planner.html")
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
