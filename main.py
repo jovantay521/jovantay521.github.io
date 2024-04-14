@@ -130,9 +130,12 @@ def saveRoute():
     # print(encodedRoute)
     # print(routeInfo)
     data = {"source": src, "destination": dst, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
-    dbSaveRoute.saveRoute(data)
+    result = dbSaveRoute.saveRoute(data)
+    if (result == 1):
+        return "Success"
+    else:
+        return "Failure"
 
-    return "success"
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
