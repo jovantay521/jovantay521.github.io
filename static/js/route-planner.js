@@ -98,7 +98,10 @@ dstInput.addEventListener('input', ()=>{autocomplete(dstInput)});
 
 form.addEventListener('submit', function(event){
     event.preventDefault();
-
+    calBtn.disabled = true;
+    setTimeout(()=>{
+        calBtn.disabled=false;
+    },3000);
     var src = srcInput.value;
     var dst = dstInput.value;
 
