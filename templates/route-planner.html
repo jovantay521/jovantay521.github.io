@@ -17,7 +17,7 @@
 
 <body>
   <!-- navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="z-index: 4;">
     <div class="container-fluid">
       <!-- website logo -->
       <a class="navbar-brand" href="/route-planner">
@@ -56,7 +56,7 @@
   </nav>
 
   <!-- search box -->
-  <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index:4;">
+  <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index: 5;">
     <form id="input-form" action="/route-planner">
 
       <!-- mode of transport selector -->
@@ -90,7 +90,7 @@
   </div>
 
   <!-- routing data -->
-  <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index:4; display:none;">
+  <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index: 5; display:none;">
 
     <!-- red route info -->
     <div class="d-grid routeInfoButton">
@@ -146,7 +146,7 @@
   <!-- end of routing info -->
 
   <!-- map display -->
-  <div id="map" style="z-index:3"></div>
+  <div id="map" style="z-index: 3"></div>
   <script src="{{url_for('static',filename='js/map.js')}}"></script>
   <!-- end of map display -->
 
