@@ -41,7 +41,7 @@ def accLogin_post():
 
     except HTTPError as http_err:
         if "INVALID_LOGIN_CREDENTIALS" in str(http_err):
-            flash("Email/Password does not exist. Please try again.")
+            flash("Email/Password does not exist or is incorrect. Please try again.")
             return redirect("/login")
         else:
             flash("An error has occurred. Please try again later.")
