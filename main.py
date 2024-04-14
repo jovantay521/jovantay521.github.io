@@ -106,5 +106,21 @@ def cal_route():
         "template": template
     })
 
+@app.route("/", methods=['POST'])
+def saveRoute():
+    import json
+    src= request.form['source']
+    dst= request.form['destination']
+    routeType = request.form['routeType']
+    encodedRoute = json.loads(request.form['encodedRoute'])
+    routeInfo = json.loads(request.form['routeInfo'])
+
+    print(src)
+    print(dst)
+    print(routeType)
+    print(encodedRoute)
+    print(routeInfo)
+
+    return "success"
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

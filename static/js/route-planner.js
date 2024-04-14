@@ -240,11 +240,15 @@ function saveRoute(routeNum)
     form.append('source', route.source);
     form.append('destination',route.destination);
     form.append('routeType',route.routeType);
-    form.append('encodedRoute',route.encodedRoute);
+    form.append('encodedRoute',JSON.stringify(route.encodedRoute));
     form.append('routeInfo',JSON.stringify(routeInfoStr));
 
     fetch("/",{         //route to be filled
         method: "POST",
         body: form
-    }).then();
+    }).then(res=>{
+        return res.text();
+    }).then(txt=>{
+        console.log(txt);
+    });
 }
