@@ -44,6 +44,7 @@ def accSignUp_post():
         result = dbAccOp.accCreate(userdetails)
         if (result != 0):
             session['username'] = username
+            session['email'] = email
             # print("Account " + username + " was created and added to database")
             return redirect("/route-planner")
         else:
