@@ -83,7 +83,8 @@ def cal_route():
     datetime_list =now.split(" ")
     date = datetime_list[0]
     time= datetime_list[1]
-    time="20:00:00" #use when past pt time if not comment out
+    if time[:5]>"00:00" and time[:5]<"06:00":
+        routeType = "drive"
 
     #to be refreshed on wed 17/4
     token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaW50ZXJuYWwtYWxiLW9tLXByZGV6aXQtaXQtMTIyMzY5ODk5Mi5hcC1zb3V0aGVhc3QtMS5lbGIuYW1hem9uYXdzLmNvbS9hcGkvdjIvdXNlci9wYXNzd29yZCIsImlhdCI6MTcxMzA3MzkzMiwiZXhwIjoxNzEzMzMzMTMyLCJuYmYiOjE3MTMwNzM5MzIsImp0aSI6Iko0aUR6VmtIMXVadjdub3IiLCJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.3CnAVoe1hcalNu8wEUyPUprGxvwcXxLleXSGwk1MwwA"
@@ -93,7 +94,6 @@ def cal_route():
     else: #for driving/cycling/walking
         routing_url = f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}"
     route_response = requests.request("GET", routing_url, headers=headers).json()
-
     template=None
     if routeType == "pt":
         template = displayPTInfo(route_response["plan"]["itineraries"])
@@ -116,5 +116,21 @@ def cal_route():
         "template": template
     })
 
+@app.route("/", methods=['POST'])
+def saveRoute():
+    import json
+    src= request.form['source']
+    dst= request.form['destination']
+    routeType = request.form['routeType']
+    encodedRoute = json.loads(request.form['encodedRoute'])
+    routeInfo = json.loads(request.form['routeInfo'])
+
+    print(src)
+    print(dst)
+    print(routeType)
+    print(encodedRoute)
+    print(routeInfo)
+
+    return "success"
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
