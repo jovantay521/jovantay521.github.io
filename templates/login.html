@@ -55,6 +55,8 @@
 
         <!-- log out button only appears if user is logged in (tracked by session)-->
         {% if 'email' in session %}
+        
+        <li class="nav-item">
         <a class="btn btn-primary" href="/login" role="button">Login</a>
         <a id="logout-btn" class="btn btn-primary " href="/logout" role="button">Log out</a>
         {% else %}

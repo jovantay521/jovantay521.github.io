@@ -43,6 +43,9 @@ def accLogin_post():
         if "INVALID_LOGIN_CREDENTIALS" in str(http_err):
             flash("Email/Password does not exist or is incorrect. Please try again.")
             return redirect("/login")
+        elif "EMAIL_EXISTS" in str(http_err):
+            flash("An existing account has already been made with this email. Please try again.")
+            return redirect("/signup")
         else:
             flash("An error has occurred. Please try again later.")
             return redirect("/login")
