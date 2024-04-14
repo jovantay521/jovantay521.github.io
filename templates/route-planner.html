@@ -17,7 +17,7 @@
 
 <body>
   <!-- navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="z-index: 4;">
     <div class="container-fluid">
       <!-- website logo -->
       <a class="navbar-brand" href="/route-planner">
@@ -49,16 +49,29 @@
   </nav>
 
   <!-- search box -->
-  <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index:4;">
-    <form id="input-form" action="">
+  <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index: 5;">
+    <form id="input-form" action="/route-planner">
 
       <!-- mode of transport selector -->
-      <select class="form-select form-select mb-2" id="searchRange" name="type">
-        <option selected>Select Search Range</option>
-        <option value="0.05">50m</option>
-        <option value="0.1">100m</option>
-        <option value="0.2">200m</option>
+      <select class="form-select form-select mb-2" id="routeType" name="type">
+        <option selected disabled>Select Mode of Transport</option>
+        <option value="pt">Public Transport</option>
+        <option value="drive">Drive</option>
       </select>
+
+      <!-- starting address input -->
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" id="srcInput" name="start" placeholder="Enter your address">
+      </div>
+
+      <!-- destination address input -->
+      <div class="input-group mb-2">
+        <input type="text" class="form-control" id="dstInput" name="end" placeholder="Enter your destination">
+      </div>
+
+      <!-- autocomplete results -->
+      <ul id="autocomplete" class="list-group list-group-flush"></ul>
+      <!-- list display in route-planner.js -->
 
       <!-- enter button -->
       <div class="d-grid">
@@ -70,10 +83,10 @@
   </div>
 
   <!-- routing data -->
-  <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index:4;">
+  <div id="routeData" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index: 5; display:none;">
 
     <!-- red route info -->
-    <div class="d-grid">
+    <div class="d-grid routeInfoButton">
       <button class="btn btn-danger" type="button" data-bs-toggle="collapse" data-bs-target="#red-route"
       aria-expanded="false" aria-controls="red-route">
       Red Route
@@ -90,7 +103,7 @@
     <!-- end of red route info -->
 
     <!-- blue route info -->
-    <div class="d-grid mt-2">
+    <div class="d-grid mt-2 routeInfoButton">
       <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#blue-route"
       aria-expanded="false" aria-controls="blue-route">
       Blue Route
@@ -107,7 +120,7 @@
     <!-- end of blue route info -->
     
     <!-- green route info -->
-    <div class="d-grid mt-2">
+    <div class="d-grid mt-2 routeInfoButton">
       <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#green-route"
       aria-expanded="false" aria-controls="collapseExample">
       Green Route
@@ -126,7 +139,7 @@
   <!-- end of routing info -->
 
   <!-- map display -->
-  <div id="map" style="z-index:3"></div>
+  <div id="map" style="z-index: 3"></div>
   <script src="{{url_for('static',filename='js/map.js')}}"></script>
   <!-- end of map display -->
 
@@ -135,7 +148,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <!-- polyline js -->
   <script src="https://cdn.jsdelivr.net/npm/polyline-encoded@0.0.9/Polyline.encoded.min.js"></script>
-  <script src="{{url_for('static', filename='js/carpark.js')}}"></script>
+  <script src="{{url_for('static', filename='js/route-planner.js')}}"></script>
 </body>
 
 </html>
