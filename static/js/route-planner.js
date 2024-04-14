@@ -77,11 +77,14 @@ class Route
     displaySavedRouteInfo()
     {
         var div = document.createElement("div");
+        div.classList.add("route1Steps");
         var ul = document.createElement("ul");
-        ul.classList.add(".collapse", ".list-group", ".list-group-flush", ".list-group-numbered");
+        ul.classList.add("list-group");
+        ul.classList.add("list-group-flush");
+        ul.classList.add("list-group-numbered");
         this.routeInfo.forEach(str=>{
             var li = document.createElement("li");
-            li.classList.add(".list-group-item");
+            li.classList.add("list-group-item");
             li.textContent=str;
             ul.appendChild(li);
         })
