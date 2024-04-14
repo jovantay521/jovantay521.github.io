@@ -323,7 +323,6 @@ function loadRoutes()
             div.classList.add('border');
             div.classList.add('p-3');
             
-            
             //bootstrap for delBtn
             delBtn.classList.add('btn-close');
             delBtn.classList.add('text-reset'); //inherit colour from parent class
