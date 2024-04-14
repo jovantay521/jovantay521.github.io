@@ -284,7 +284,7 @@ function saveRoute(routeNum)
         method: "POST",
         body: form
     }).then(res=>{
-        return res.text()
+        return res.text();
     }).then(txt=>{
         console.log(txt);
     });
@@ -307,12 +307,27 @@ function loadRoutes()
             var route = new Route(element.source, element.destination, element.routeType, element.encodedRoute, element.routeInfo,"red");
             savedRoutes.push(route);
             var div=document.createElement('div');
+            var delBtn = document.createElement('button');
+
+            div.textContent= `${counter}: ${element.name}`;
+            counter++;
+
+            div.appendChild(delBtn);
+
             div.classList.add('rounded');
             div.classList.add('border');
             div.classList.add('p-3');
-            div.textContent= `${counter}: ${element.name}`;
-            counter++;
-    
+            
+            delBtn.classList.add('btn-close');
+            delBtn.classList.add('text-reset'); //inherit colour from parent class
+            delBtn.classList.add('text-end');
+            delBtn.setAttribute('type', 'button');
+            delBtn.setAttribute('aria-label', 'Close');
+
+            
+            
+
+                
             div.addEventListener('click',function(event){
                 routeContainer.forEach(element=>{
                     element.removeAllInfo();
