@@ -87,7 +87,7 @@ def cal_route():
         routeType = "drive"
 
     #to be refreshed on wed 17/4
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vaW50ZXJuYWwtYWxiLW9tLXByZGV6aXQtaXQtMTIyMzY5ODk5Mi5hcC1zb3V0aGVhc3QtMS5lbGIuYW1hem9uYXdzLmNvbS9hcGkvdjIvdXNlci9wYXNzd29yZCIsImlhdCI6MTcxMzA3MzkzMiwiZXhwIjoxNzEzMzMzMTMyLCJuYmYiOjE3MTMwNzM5MzIsImp0aSI6Iko0aUR6VmtIMXVadjdub3IiLCJzdWIiOiJmZmFmMmU2ZjQ0NmM5YjVjMmJhMTJiZTA4YTU2NzM4MCIsInVzZXJfaWQiOjI0ODUsImZvcmV2ZXIiOmZhbHNlfQ.3CnAVoe1hcalNu8wEUyPUprGxvwcXxLleXSGwk1MwwA"
+    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxYjM3NWEzYTcwNTdiZTI0NGJlZDE4ZmFhOTlkMzYwYSIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEzMTExNjEzLCJleHAiOjE3MTMzNzA4MTMsIm5iZiI6MTcxMzExMTYxMywianRpIjoiWE4xVmVNRDV4WW54OGs4WCIsInVzZXJfaWQiOjMyNDQsImZvcmV2ZXIiOmZhbHNlfQ.FBvgKYCjuWe70wsXVrfGI-v4mJAWDe5ScpxHYVxSYv4"
     headers = {"Authorization": token}
     if routeType == "pt":
         routing_url =  f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}&date={date}&time={time}&mode={mode}&numItineraries=3"
