@@ -138,5 +138,21 @@ def saveRoute():
     else:
         return "Failure"
 
+@app.route("/getRoute", methods=['GET'])
+def getRoute():
+    allSavedRoutes = {"routes" : []}
+    savedRoutes=dbSaveRoute.retrieveSaveRoute()
+    for route in savedRoutes.each():
+        name = route.key()
+        source = route.val()['source']
+        destination = route.val()['destination']
+        routeType = route.val()['routeType']
+        encodedRoute = route.val()['encodedRoute']
+        routeInfo = route.val()['routeInfo']
+        data = {"name": name,"source": source, "destination": destination, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
+        allSavedRoutes['routes'].append(data)
+
+    return jsonify(allSavedRoutes)
+    
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

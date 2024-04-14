@@ -45,7 +45,7 @@
         <!-- log out button only appears if user is logged in (tracked by session)-->
         {% if 'email' in session %}
         <li class="nav-item" style="list-style-type: none;">
-          <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#savedroute-menu" aria-controls="savedroute-menu">Saved Route</button>
+          <button onclick="loadRoutes()" class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#savedroute-menu" aria-controls="savedroute-menu">Saved Route</button>
         </li>
         <li class="nav-item" style="list-style-type: none;">
         <a id= "logout-btn" class="btn btn-primary " href="/logout" role="button">Log out</a> 
