@@ -44,7 +44,7 @@
 
         <!-- log out button only appears if user is logged in (tracked by session)-->
         {% if 'email' in session %}
-        <a class="btn btn-primary" href="/login" role="button">Login</a> 
+        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#savedroute-menu" aria-controls="savedroute-menu">Saved Route</button>
         <a id= "logout-btn" class="btn btn-primary " href="/logout" role="button">Log out</a> 
         {% else %}
         <a class="btn btn-primary" href="/login" role="button">Login</a> 
@@ -54,6 +54,18 @@
       <!-- end of nav -->
     </div>
   </nav>
+
+  <!-- saved route menu -->
+  <div class="offcanvas offcanvas-end" id="savedroute-menu" style="width: 40%;" >
+    <div class="offcanvas-header">
+      <h5>Saved Route</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="savedroute-menu"></button>
+    </div>
+
+    <div class="offcanvas-body">
+      <!--  input here -->
+    </div>
+  </div>
 
   <!-- search box -->
   <div id="userInput" class="card mt-2 ms-2 p-2" style="width: 18rem; z-index: 5;">
@@ -153,6 +165,7 @@
   <!-- scripts -->
   <!-- bootstrap js -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
   <!-- polyline js -->
   <script src="https://cdn.jsdelivr.net/npm/polyline-encoded@0.0.9/Polyline.encoded.min.js"></script>
   <script src="{{url_for('static', filename='js/route-planner.js')}}"></script>
