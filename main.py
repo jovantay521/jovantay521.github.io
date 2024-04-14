@@ -119,12 +119,14 @@ def cal_route():
 @app.route("/", methods=['POST'])
 def saveRoute():
     import json
+    name= request.form['name']
     src= request.form['source']
     dst= request.form['destination']
     routeType = request.form['routeType']
     encodedRoute = json.loads(request.form['encodedRoute'])
     routeInfo = json.loads(request.form['routeInfo'])
 
+    print(name)
     print(src)
     print(dst)
     print(routeType)
