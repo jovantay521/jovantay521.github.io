@@ -287,7 +287,7 @@ function saveRoute(routeNum)
         method: "POST",
         body: form
     }).then(res=>{
-        return res.text();
+        return res.text()
     }).then(txt=>{
         console.log(txt);
     });

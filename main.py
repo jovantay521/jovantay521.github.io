@@ -54,7 +54,7 @@ def displayPTInfo(data):
 @app.route("/logout")
 def logout():
     dbAccOp.accLogout()
-    return redirect ("/route-planner")
+    return redirect("/route-planner")
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
@@ -138,6 +138,8 @@ def saveRoute():
     else:
         return "Failure"
 
+
+
 @app.route("/getRoute", methods=['GET'])
 def getRoute():
     allSavedRoutes = {"routes" : []}
@@ -153,6 +155,7 @@ def getRoute():
         allSavedRoutes['routes'].append(data)
 
     return jsonify(allSavedRoutes)
-    
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
