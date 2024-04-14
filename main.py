@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session, redirect
 from backends.login import loginBp
 from backends.signup import signupBp
-from backends.busExplorer import busExplorerBp
+# from backends.busExplorer import busExplorerBp
 from backends.reset import resetBp
 from database.dbSaveRoute import dbSaveRoute
 from database.dbAccOperation import dbAccOp
@@ -17,7 +17,7 @@ app.secret_key = secrets.token_hex(16) #Creates a session key.
 app.register_blueprint(loginBp)
 app.register_blueprint(resetBp)
 app.register_blueprint(signupBp)
-app.register_blueprint(busExplorerBp)
+# app.register_blueprint(busExplorerBp)
 
 @app.route("/", methods =['GET'])
 @app.route("/route-planner", methods=['GET'])
@@ -54,7 +54,7 @@ def displayPTInfo(data):
 @app.route("/logout")
 def logout():
     dbAccOp.accLogout()
-    return redirect("/route-planner")
+    return render_template("/route-planner")
 
 @app.route("/route-planner", methods=['POST'])
 def cal_route():
@@ -162,6 +162,7 @@ def delRoute():
     name = request.form["name"]
     dbSaveRoute.deleteSaveRotue(name)
     return "success"
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)
