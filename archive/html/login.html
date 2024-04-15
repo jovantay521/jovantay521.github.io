@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/general.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/header.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/website.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='/css/login.css')}}">
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="left-section">
+        <a class="nav-link" href="{{ url_for('home') }}">
+          <img class="back-arrow-image" src="{{url_for('static', filename='../images/back-arrow.png')}}" alt="">
+          Back
+        </a>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="sign-up-container">
+        <div class="sign-up">
+          <form method="post" action="/accLogin">
+            <div class="username-box">
+              <label for="email">Email:</label>
+              <input id="email" class="username-textbox" type="text" name="email" placeholder="Email">
+            </div>
+            <div class="password-box">
+              <label for="password">Password:</label>
+              <input id="password" class="password-textbox" type="password" name="password" placeholder="Password">
+            </div>
+            <button class="login-button">Login</button>
+          </form>
+
+          <button class="reset-password-button">Forgot your password?</button>
+          <a class="sign-up-button" href="/signup">Don't have an account? Sign up here</a>
+<!--          <button id="signupBtn" class="sign-up-button">Don't have an account? Sign up here</button>-->
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>

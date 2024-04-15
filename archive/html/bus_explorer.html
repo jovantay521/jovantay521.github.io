@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My First Website</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/general.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/header.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/website.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/onemap_modified_leaflet.css')}}">
+
+    <!-- onemap leafletjs map -->
+<!--    <link rel="stylesheet" href="https://www.onemap.gov.sg/web-assets/libs/leaflet/leaflet.css" />-->
+    <script src="https://www.onemap.gov.sg/web-assets/libs/leaflet/onemap-leaflet.js"></script>
+  </head>
+
+  <body>
+    <script src="{{url_for('static', filename='js/header_menu.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/bus_explorer.js')}}"></script>
+    <!-- header -->
+    <div class="header">
+      <div class="left-section">
+        <a class="nav-link website-logo" href="/">
+          <img class="singapore-flag" src="{{url_for('static', filename='images/singapore-flag.png')}}" alt="">
+          Map
+        </a>
+      </div>
+
+      <nav class="middle-section">
+        <a class="nav-link" href="/route_planner">Route Planner</a>
+        <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
+      </nav>
+      
+      <div class="right-section">
+        <a class="nav-link login-button" href="/login">
+          <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
+          Login 
+        </a>
+      </div>
+
+      <div class="hamburger-menu">
+        <button class="button" type="button" onclick="hamburgerMenu()">&#9660;
+        </button>
+          <div class="hamburger-content" id="hamburger">
+            <a class="nav-link" href="/route_planner">Route Planner</a>
+            <a class="nav-link border" href="/bus_explorer">Bus Explorer</a>
+            <a class="nav-link login-button" href="/login">
+              <img class="locked-icon" src="{{url_for('static', filename='images/locked-icon.png')}}" alt="">
+              Login 
+            </a>
+        </div>
+      </div>
+
+    </div>
+    <!-- end of header -->
+
+    <div id="map"></div>
+    <script src="{{url_for('static', filename='js/map.js')}}"></script>
+  </body>
+
+</html>
