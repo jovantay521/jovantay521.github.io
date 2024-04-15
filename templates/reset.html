@@ -79,7 +79,7 @@
               
               <button class="btn btn-primary" style="width: 100%;">Reset Password</button>
             </form>
-
+          </div>
           <!-- warning messages -->
           {% with messages = get_flashed_messages() %}
           {% if messages %}
@@ -91,14 +91,14 @@
           {% endif %}
           {% endwith %}
           <!-- end of warning messages -->
-
-          <div class="card" style="width: 500px; margin-top: 20px;">
-            <div class="card-body">
-              <a class="login-page-button" href="/login" style="display: flex; justify-content: center; align-items: center;">Return to Login Page</a>
-            </div>
-           </div>
+        </div>
+        <div class="card" style="width: 500px; margin-top: 20px;">
+          <div class="card-body">
+            <a class="login-page-button" href="/login" style="display: flex; justify-content: center; align-items: center;">Return to Login Page</a>
+          </div>
           </div>
         </div>
+      </div>
       <!-- end of sign up box -->
     </div>
   </body>
