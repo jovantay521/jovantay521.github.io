@@ -152,7 +152,7 @@ form.addEventListener('submit', function(event){
         }
     else
         {
-            console.log("there");
+            type=routeType.value;
         }
 
     const formData = new FormData(this);
