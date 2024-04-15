@@ -1,7 +1,0 @@
-#map {
-    top: 55px;
-    height:160vh;
-    width: calc(100vw); 
-    position:fixed;
-    z-index:-2;
-}
