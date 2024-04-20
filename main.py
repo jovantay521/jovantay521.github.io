@@ -89,7 +89,7 @@ def cal_route():
         routeType = "drive"
 
     #to be refreshed on wed 17/4
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxYjM3NWEzYTcwNTdiZTI0NGJlZDE4ZmFhOTlkMzYwYSIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEzMTExNjEzLCJleHAiOjE3MTMzNzA4MTMsIm5iZiI6MTcxMzExMTYxMywianRpIjoiWE4xVmVNRDV4WW54OGs4WCIsInVzZXJfaWQiOjMyNDQsImZvcmV2ZXIiOmZhbHNlfQ.FBvgKYCjuWe70wsXVrfGI-v4mJAWDe5ScpxHYVxSYv4"
+    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTFlZmQzMjk5ZGE5NmZjMDE4NzM3NzdiZTRmNGJhMiIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEzNjIwNjY3LCJleHAiOjE3MTM4Nzk4NjcsIm5iZiI6MTcxMzYyMDY2NywianRpIjoiVU9YT0NrT0hxejlHZ2dxZyIsInVzZXJfaWQiOjMyNDUsImZvcmV2ZXIiOmZhbHNlfQ.WxvhO1MRRiF8k6Rv2GklVFPdWNNNHzlkZbaoYd7Ykj8"
     headers = {"Authorization": token}
     if routeType == "pt":
         routing_url =  f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}&date={date}&time={time}&mode={mode}&numItineraries=3"
@@ -97,6 +97,7 @@ def cal_route():
         routing_url = f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}"
     route_response = requests.request("GET", routing_url, headers=headers).json()
     template=None
+
     if routeType == "pt":
         template = displayPTInfo(route_response["plan"]["itineraries"])
     else:
@@ -127,20 +128,14 @@ def saveRoute():
     encodedRoute = json.loads(request.form['encodedRoute'])
     routeInfo = json.loads(request.form['routeInfo'])
 
-    # print(name)
-    # print(src)
-    # print(dst)
-    # print(routeType)
-    # print(encodedRoute)
-    # print(routeInfo)
     data = {"source": src, "destination": dst, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
     result = dbSaveRoute.saveRoute(data, name)
     if (result == 1):
         return "Success"
+    elif (result == 2):
+        return "Duplicate"
     else:
         return "Failure"
-
-
 
 @app.route("/getRoute", methods=['GET'])
 def getRoute():
@@ -162,7 +157,7 @@ def getRoute():
 @app.route("/delRoute", methods=["POST"])
 def delRoute():
     name = request.form["name"]
-    dbSaveRoute.deleteSaveRotue(name)
+    result = dbSaveRoute.deleteSaveRotue(name)
     return "success"
 
 if __name__ == '__main__':

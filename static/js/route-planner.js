@@ -293,6 +293,10 @@ function saveRoute(routeNum)
         {
             alert("Route saved successfully.");
         }
+        else if(txt=="Duplicate")
+        {
+            alert("Failed to save. Please use another name.");
+        }
         else
         {
             alert("Failed to save, limit reached. Please delete a save route.");

@@ -15,9 +15,13 @@ class dbSaveRoute:
 
         limit = dbSaveRoute.checkSlotLimit(savedRoutes)
         if (limit < 9):
-            #Update user's save slot with newly created route
-            db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
-            return 1
+            duplicateName = dbSaveRoute.checkSameName(savedRoutes, routename)
+            if (duplicateName is False):
+                #Update user's save slot with newly created route
+                db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
+                return 1
+            else:
+                return 2
         else:
             return 0
 
@@ -38,7 +42,16 @@ class dbSaveRoute:
         #Access firebase database
         db = firebase.database()
         uid = session['uid']
-        result = db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
+        db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
+
+    @staticmethod
+    def checkSameName(savedata, routeName):
+        if (savedata.val() is not None):
+            for save in savedata.each():
+                if(save.key() == routeName):
+                    return True
+        else:
+            return False
 
     @staticmethod
     def checkSlotLimit(savedata):
