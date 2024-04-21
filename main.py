@@ -89,7 +89,10 @@ def cal_route():
         routeType = "drive"
 
     #to be refreshed on wed 17/4
-    token ="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI2MTFlZmQzMjk5ZGE5NmZjMDE4NzM3NzdiZTRmNGJhMiIsImlzcyI6Imh0dHA6Ly9pbnRlcm5hbC1hbGItb20tcHJkZXppdC1pdC0xMjIzNjk4OTkyLmFwLXNvdXRoZWFzdC0xLmVsYi5hbWF6b25hd3MuY29tL2FwaS92Mi91c2VyL3Bhc3N3b3JkIiwiaWF0IjoxNzEzNjIwNjY3LCJleHAiOjE3MTM4Nzk4NjcsIm5iZiI6MTcxMzYyMDY2NywianRpIjoiVU9YT0NrT0hxejlHZ2dxZyIsInVzZXJfaWQiOjMyNDUsImZvcmV2ZXIiOmZhbHNlfQ.WxvhO1MRRiF8k6Rv2GklVFPdWNNNHzlkZbaoYd7Ykj8"
+    # Open the file in read mode
+    with open('api-key.txt', 'r') as file:
+        # Read the entire contents of the file into a string
+        token = file.read()
     headers = {"Authorization": token}
     if routeType == "pt":
         routing_url =  f"https://www.onemap.gov.sg/api/public/routingsvc/route?start={start_lat}%2C{start_long}&end={end_lat}%2C{end_long}&routeType={routeType}&date={date}&time={time}&mode={mode}&numItineraries=3"

@@ -22,6 +22,11 @@ Python 3.12
 python --version # check python version
 ```
 
+OneMap API Token
+1. Register for account on [OneMap API Website](https://www.onemap.gov.sg/apidocs/register)
+2. Verify your account
+3. Paste API Key in api-key.txt (Existing key may have expired)
+
 ### Installation
 
 Clone the project
