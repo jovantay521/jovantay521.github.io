@@ -134,6 +134,8 @@ def saveRoute():
         return "Success"
     elif (result == 2):
         return "Duplicate"
+    elif (result == 3):
+        return "Limit"
     else:
         return "Failure"
 
@@ -141,15 +143,16 @@ def saveRoute():
 def getRoute():
     allSavedRoutes = {"routes" : []}
     savedRoutes=dbSaveRoute.retrieveSaveRoute()
-    for route in savedRoutes.each():
-        name = route.key()
-        source = route.val()['source']
-        destination = route.val()['destination']
-        routeType = route.val()['routeType']
-        encodedRoute = route.val()['encodedRoute']
-        routeInfo = route.val()['routeInfo']
-        data = {"name": name,"source": source, "destination": destination, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
-        allSavedRoutes['routes'].append(data)
+    if savedRoutes is not None:
+        for route in savedRoutes.each():
+            name = route.key()
+            source = route.val()['source']
+            destination = route.val()['destination']
+            routeType = route.val()['routeType']
+            encodedRoute = route.val()['encodedRoute']
+            routeInfo = route.val()['routeInfo']
+            data = {"name": name,"source": source, "destination": destination, "routeType": routeType, "encodedRoute": encodedRoute, "routeInfo": routeInfo}
+            allSavedRoutes['routes'].append(data)
 
     return jsonify(allSavedRoutes)
 
@@ -158,7 +161,10 @@ def getRoute():
 def delRoute():
     name = request.form["name"]
     result = dbSaveRoute.deleteSaveRotue(name)
-    return "success"
+    if (result == 1):
+        return "success"
+    else:
+        return "fail"
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

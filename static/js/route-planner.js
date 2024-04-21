@@ -297,9 +297,13 @@ function saveRoute(routeNum)
         {
             alert("Failed to save. Please use another name.");
         }
-        else
+        else if(txt=="Limit")
         {
             alert("Failed to save, limit reached. Please delete a save route.");
+        }
+        else
+        {
+            alert("Failed to save. Firebase error.");
         }
     });
 }
@@ -379,6 +383,10 @@ function loadRoutes()
                     {
                         loadRoutes();
                         alert("Route successfully deleted.");
+                    }
+                    else
+                    {
+                        alert("Route failed to be deleted.")
                     }
                     return;
                 })

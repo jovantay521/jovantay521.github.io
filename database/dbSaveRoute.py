@@ -4,45 +4,58 @@ from flask import session
 class dbSaveRoute:
     @staticmethod
     def saveRoute(routeData, routename):
-        #Open database connection
-        firebase = dbConnection.openConn()
-        #Access firebase database
-        db = firebase.database()
+        try:
+            #Open database connection
+            firebase = dbConnection.openConn()
+            #Access firebase database
+            db = firebase.database()
 
-        uid = session['uid']
-        #Retrieve data to check save slot limit. User can only save 10 routes.
-        savedRoutes = db.child("users").child(uid).child("SavedRoutes").get()
+            uid = session['uid']
+            #Retrieve data to check save slot limit. User can only save 10 routes.
+            savedRoutes = db.child("users").child(uid).child("SavedRoutes").get()
 
-        limit = dbSaveRoute.checkSlotLimit(savedRoutes)
-        if (limit < 9):
-            duplicateName = dbSaveRoute.checkSameName(savedRoutes, routename)
-            if (duplicateName is False):
-                #Update user's save slot with newly created route
-                db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
-                return 1
+            limit = dbSaveRoute.checkSlotLimit(savedRoutes)
+            if (limit < 9):
+                duplicateName = dbSaveRoute.checkSameName(savedRoutes, routename)
+                if (duplicateName is False):
+                    #Update user's save slot with newly created route
+                    db.child("users").child(uid).child("SavedRoutes").child(routename).update(routeData)
+                    return 1
+                else:
+                    return 2 #duplicate route name found
             else:
-                return 2
-        else:
-            return 0
+                return 3 #save slot limit reached
+        except:
+            return 0 #error with firebase
 
     @staticmethod
     def retrieveSaveRoute():
-        #Open database connection
-        firebase = dbConnection.openConn()
-        #Access firebase database
-        db = firebase.database()
-        uid = session['uid']
-        savedRoutes = db.child("users").child(uid).child("SavedRoutes").get()
-        return savedRoutes
+        try:
+            #Open database connection
+            firebase = dbConnection.openConn()
+            #Access firebase database
+            db = firebase.database()
+            uid = session['uid']
+            savedRoutes = db.child("users").child(uid).child("SavedRoutes").get()
+            return savedRoutes
+        except:
+            return None
+
 
     @staticmethod
     def deleteSaveRotue(routeName):
-        #Open database connection
-        firebase = dbConnection.openConn()
-        #Access firebase database
-        db = firebase.database()
-        uid = session['uid']
-        db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
+        try:
+            #Open database connection
+            firebase = dbConnection.openConn()
+            #Access firebase database
+            db = firebase.database()
+            uid = session['uid']
+
+            deletedRoute = db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
+            if deletedRoute.val() is not None:
+                return 1
+        except:
+            return 0
 
     @staticmethod
     def checkSameName(savedata, routeName):
