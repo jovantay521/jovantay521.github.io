@@ -25,7 +25,7 @@ python --version # check python version
 OneMap API Token
 1. Register for account on [OneMap API Website](https://www.onemap.gov.sg/apidocs/register)
 2. Verify your account
-3. Paste API Key in api-key.txt (Existing key may have expired)
+3. Paste API Key in api-key.txt (Note: Do not add spaces or newline after the token)
 
 ### Installation
 
@@ -61,6 +61,12 @@ Host website locally
 python main.py
 ```
 ![landing-page](static/images/github-readme-image.jpeg)
+
+## Testing
+Test account details:
+- Gmail: testuseracc0101@gmail.com
+- Password: Pass123!
+
 ## Built Using
 - [Flask](https://flask.palletsprojects.com/en/3.0.x/) - Web Framework
 - [Firebase](https://firebase.google.com/) - Database
