@@ -52,8 +52,8 @@ class dbSaveRoute:
             uid = session['uid']
 
             deletedRoute = db.child("users").child(uid).child("SavedRoutes").child(routeName).remove()
-            if deletedRoute.val() is not None:
-                return 1
+            # if deletedRoute.val() is not None:
+            return 1
         except:
             return 0
 
