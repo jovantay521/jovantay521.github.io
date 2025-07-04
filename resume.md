@@ -3,12 +3,11 @@ layout: default
 title: resume
 permalink: /resume/
 ---
-# [Your Name]
+# Tay Jovan
 *Cybersecurity Enthusiast | Problem Solver | Learner*
 
-[Your Email](mailto:your.email@example.com)  
-[Your LinkedIn](https://www.linkedin.com/in/yourname)  
-[Your GitHub](https://github.com/yourusername)
+Email: [jovantay521@gmail.com](mailto:jovantay521@gmail.com)  
+GitHub: [GitHub](https://github.com/jovantay521)
 
 ---
 
@@ -30,9 +29,8 @@ I am a dedicated cybersecurity beginner with a passion for securing digital syst
 
 ## Certifications
 
-- **CompTIA Security+** – [Month, Year]
-- **Certified Ethical Hacker (CEH)** (In Progress)
-- **Cisco Certified Network Associate (CCNA)** – [Month, Year] (if applicable)
+- **Offensive Security Wireless Pentester (OSWP)** – July, 2024
+- **Offensive Security Certified Pentester (OSCP)** - (In Progress)
 
 ---
 
