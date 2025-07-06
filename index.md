@@ -1,42 +1,88 @@
 ---
 layout: default
 ---
+# Tay Jovan
+*Cybersecurity Enthusiast | Problem Solver | Learner*
 
-## Hi! I'm Jovan 👋
+Email: [jovantay521@gmail.com](mailto:jovantay521@gmail.com)  
+GitHub: [GitHub](https://github.com/jovantay521)
 
-I'm a beginner cybersecurity enthusiast who is passionate about learning and growing in the field of digital security. My journey in cybersecurity started with curiosity about how online systems work and how to protect them from various threats. Now, I'm dedicated to exploring and mastering the skills required to ensure the safety of systems and data in our increasingly connected world.
+---
 
-## My Cybersecurity Journey
+## Summary
+I am a dedicated cybersecurity beginner with a passion for securing digital systems and protecting data from emerging threats. I’m eager to apply my skills in ethical hacking, network security, and encryption to contribute to safe, secure environments. Currently expanding my knowledge in network analysis, risk management, and security auditing.
 
-I began my journey with the basics—learning about common threats like malware, phishing, and password vulnerabilities. As I progressed, I started diving deeper into topics such as:
+---
 
-- **Network Security**: Understanding how data travels across the internet and securing networks from attacks.
-- **Encryption**: Learning how to protect sensitive data using cryptography.
-- **Ethical Hacking**: Exploring penetration testing techniques to identify and fix security weaknesses in systems.
-- **Incident Response**: Learning how to react to and recover from security breaches.
+## Skills
 
-## Skills I'm Learning
+- **Programming Languages**: Python, Bash, HTML, CSS
+- **Operating Systems**: Linux, Windows, macOS
+- **Tools & Technologies**: Wireshark, Metasploit, Burp Suite, Nmap, Nessus
+- **Networking**: TCP/IP, DNS, VPNs, Firewalls, Proxy Servers
+- **Security Concepts**: Ethical Hacking, Penetration Testing, Encryption, Malware Analysis, Incident Response
+- **Web Security**: OWASP Top 10, SQL Injection, Cross-Site Scripting (XSS)
 
-- **Python Programming** for scripting security tools
-- **Linux** for understanding the underlying systems and securing them
-- **Security Auditing** and **Risk Management** to ensure secure environments
+---
 
-## My Goal
+## Certifications
 
-I am constantly working to improve my skills through courses, hands-on practice, and staying up-to-date with the latest security trends. My goal is to become proficient in:
+- **Offensive Security Wireless Pentester (OSWP)** – July, 2024
+- **Offensive Security Certified Pentester (OSCP)** - (In Progress)
 
-- Threat analysis and detection
-- Preventing cyberattacks through proactive measures
-- Educating others on the importance of cybersecurity
+---
 
-## Why Cybersecurity?
+## Experience
 
-In an age where data breaches and cyber threats are increasingly common, I believe cybersecurity is one of the most important fields to focus on. I’m excited about the challenge of solving complex problems and protecting individuals and organizations from potential threats.
+### Cybersecurity Intern  
+**[Company Name]** – [City, State] | [Month, Year] – Present  
+- Assisted in the configuration and management of firewalls and VPNs to enhance company security.
+- Conducted vulnerability assessments using tools like Nessus and Nmap.
+- Supported penetration testing projects, identifying vulnerabilities in web applications and networks.
+- Helped create and maintain internal documentation on security protocols.
 
-## Get In Touch
+### IT Support Intern  
+**[Company Name]** – [City, State] | [Month, Year] – [Month, Year]  
+- Assisted in troubleshooting and resolving technical issues related to hardware, software, and networks.
+- Managed user permissions and access controls for various systems.
+- Performed regular system updates and patch management to ensure network security.
 
-If you're also passionate about cybersecurity or have advice to share, feel free to reach out to me! Let’s connect and learn together.
+---
 
-- Email: [jovantay521@gmail.com](mailto:jovantay521@gmail.com)
+## Education
 
-Thanks for visiting my page! 💻🔐
+### [Your Degree or Certification]  
+**[University Name]** – [City, State] | [Graduation Date or Expected Graduation Date]  
+Relevant Coursework: Network Security, Cryptography, Information Security, Ethical Hacking
+
+---
+
+## Projects
+
+### Penetration Testing: Website Security Assessment  
+- Conducted penetration testing on a test website, identifying SQL injection and Cross-Site Scripting (XSS) vulnerabilities.
+- Created detailed reports outlining discovered vulnerabilities and recommended mitigations.
+
+### Network Security Lab Setup  
+- Set up a home lab environment to simulate network attacks and defenses using virtual machines.
+- Tested firewall configurations, VPN setup, and network traffic analysis with Wireshark.
+
+---
+
+## Volunteer Experience
+
+### Cybersecurity Awareness Advocate  
+**[Organization Name]** – [Month, Year] – Present  
+- Delivered presentations and workshops on basic cybersecurity best practices to local community groups.
+- Created educational materials to help individuals protect themselves from phishing attacks and malware.
+
+---
+
+## Additional Information
+
+- **Languages**: English (Fluent), [Any Other Languages]
+- **Interests**: Ethical Hacking, Cybersecurity News, Technology Blogs, Open Source Projects
+
+---
+
+**References available upon request.**
